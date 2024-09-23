@@ -75,6 +75,18 @@ shape = SubResource("RectangleShape2D_modps")
 [node name="Sprite2D" type="Sprite2D" parent="Environment/StaticBody2D4"]
 texture = SubResource("GradientTexture2D_sbenm")
 
+[node name="StaticBody2D11" type="StaticBody2D" parent="Environment"]
+position = Vector2(333, -1392)
+scale = Vector2(97.26, 0.636274)
+physics_material_override = SubResource("PhysicsMaterial_ybxwc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/StaticBody2D11"]
+position = Vector2(-0.20121, -0.785828)
+shape = SubResource("RectangleShape2D_modps")
+
+[node name="Sprite2D" type="Sprite2D" parent="Environment/StaticBody2D11"]
+texture = SubResource("GradientTexture2D_sbenm")
+
 [node name="StaticBody2D5" type="StaticBody2D" parent="Environment"]
 position = Vector2(2082, 19)
 scale = Vector2(9.94, 0.636274)

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
+enum PlayerState {Idle, Dash, Jump, Walk, Climb, Grapple}
 
+var player: PlayerState = PlayerState.Idle
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 # jumping
@@ -17,42 +19,51 @@ var dashing = false
 # grapple
 @export var has_grapple = true
 var grapple_range = 50
+var grapple_speed = 5000.0
 var grapple_active = false
 
 var death_count = 0
-var debug = false
 
 func _physics_process(delta: float) -> void:
-	if (debug):
-		if (is_on_wall()):
-			print_debug("wall")
-	
-	if grapple_active:
-		velocity += Vector2(facing, 1) * delta
-		move_and_slide()
-	# Add the gravity.
-	if not is_on_floor(): 
-		if not (wall_climb && is_on_wall()):
-			velocity += get_gravity() * delta
+	if player == PlayerState.Grapple:
+		velocity += Vector2(facing, -1) * SPEED
+		print_debug(velocity)
+		if is_on_wall() or Input.is_action_just_pressed("jump"):
+			player = PlayerState.Idle
+	elif player == PlayerState.Dash:
+		print_debug("dash")
+	elif player == PlayerState.Climb:
+		print_debug("climb")
+		JumpHandler()
+		DeathHandler()	
+		GetInput()
+	#elif player == PlayerState.Jump:
+		#print_debug("jump")
+	#elif player == PlayerState.Walk:
+		#print_debug("walk")
+	#elif player == PlayerState.Idle:
+		#print_debug("idle")	
 	else:
-		CountReset()
-	JumpHandler()
-	DeathHandler()	
-	if is_on_wall() or Input.is_action_just_pressed("jump"):
-		grapple_active = false
-	if Input.is_action_just_pressed("grapple") and has_grapple:
-		grapple_active = true
-		print_debug("attempted to grapple.")
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	GetInput()
+		# Add the gravity.
+		if not is_on_floor(): 
+			if not (wall_climb && is_on_wall()):
+				velocity += get_gravity() * delta
+		else:
+			CountReset()
+		JumpHandler()
+		DeathHandler()	
+		GetInput()
 	move_and_slide()
+	if Input.is_action_just_pressed("grapple") and has_grapple:
+		player = PlayerState.Grapple
+		print_debug("attempted to grapple.")
 func CountReset() -> void:
 	jump_count = 0
 	dash_count = 0
 	
 func GetInput() -> void:
-	
+		# Get the input direction and handle the movement/deceleration.
+		# As good practice, you should replace UI actions with custom gameplay actions.
 	if Input.is_action_just_pressed("dash") and can_dash and dash_count < dash_allowed:
 		velocity.x = facing * SPEED * 10
 		dashing = true
