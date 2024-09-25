@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cyc841wfb48xn"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_6p6h4"]
+[ext_resource type="Texture2D" uid="uid://ccyrw3274bjkp" path="res://Assets/Sprites/Playercharacter/Smallman.png" id="2_t7jth"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2v5i"]
+radius = 55.0
+height = 164.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_6p6h4")
+dash_allowed = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_t7jth")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_d2v5i")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)

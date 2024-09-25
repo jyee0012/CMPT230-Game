@@ -1,108 +1,8 @@
-[gd_scene load_steps=13 format=4 uid="uid://b7v382reu2u5o"]
+[gd_scene load_steps=9 format=3 uid="uid://b7v382reu2u5o"]
 
-[ext_resource type="Script" path="res://character_body_2d.gd" id="1_43quo"]
-[ext_resource type="Texture2D" uid="uid://ccyrw3274bjkp" path="res://Assets/Sprites/Playercharacter/Smallman.png" id="2_mtgw6"]
-[ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="2_xkivt"]
-[ext_resource type="Texture2D" uid="uid://chi5d3ha1bcu" path="res://Assets/Sprites/Environment/Environment1.png" id="4_tlyay"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qdl5u"]
-texture = ExtResource("4_tlyay")
-texture_region_size = Vector2i(160, 160)
-0:0/0 = 0
-1:0/0 = 0
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-7:0/0 = 0
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-2:1/0 = 0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-3:1/0 = 0
-3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(80, 80, 80, 80, -80, 80)
-4:1/0 = 0
-5:1/0 = 0
-6:1/0 = 0
-7:1/0 = 0
-0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-1:2/0 = 0
-1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-2:2/0 = 0
-2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-0:3/0 = 0
-0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:3/0 = 0
-1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-2:3/0 = 0
-3:3/0 = 0
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-0:4/0 = 0
-0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:4/0 = 0
-1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-2:4/0 = 0
-2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, 80, -80, 80, -80, -40)
-3:4/0 = 0
-3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, 0, 80, 80, -80, 80)
-4:4/0 = 0
-4:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, 0, 80, 80, 80, 80, -80, 80)
-5:4/0 = 0
-6:4/0 = 0
-0:5/0 = 0
-0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:5/0 = 0
-1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-2:5/0 = 0
-2:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, 80, 80, 80, -80, 80)
-3:5/0 = 0
-3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, 0, 80, 80, -80, 80)
-4:5/0 = 0
-4:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, 0, 80, 80, -80, 80)
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-2:6/0 = 0
-2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-2:6/0/physics_layer_0/polygon_0/one_way = true
-3:6/0 = 0
-3:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-3:6/0/physics_layer_0/polygon_0/one_way = true
-4:6/0 = 0
-4:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, -40, -80, -40)
-4:6/0/physics_layer_0/polygon_0/one_way = true
-5:6/0 = 0
-6:6/0 = 0
-0:7/0 = 0
-0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-1:7/0 = 0
-1:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-2:7/0 = 0
-2:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-80, -80, 80, -80, 80, 80, -80, 80)
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_ax0jf"]
-tile_size = Vector2i(160, 160)
-physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_qdl5u")
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2v5i"]
-radius = 55.0
-height = 164.0
+[ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_uonkm"]
+[ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="2_2uoqs"]
+[ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="3_wjn6m"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybxwc"]
 
@@ -118,24 +18,9 @@ gradient = SubResource("Gradient_0og75")
 radius = 65.0
 height = 165.0
 
-[node name="Node2D" type="Node2D"]
+[node name="playtest" type="Node2D"]
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD5/wIAAAAAAAcAAAD6/wIAAAAAAAcAAAD7/wIAAAAAAAcAAAD8/wIAAAAAAAcAAAD8/wMAAAAAAAcAAAD7/wMAAAAAAAcAAAD6/wMAAAAAAAcAAAD5/wMAAAAAAAcAAAD9/wIAAAACAAQAAAD//wMAAAACAAQAAAD+/wMAAAABAAMAAAD9/wMAAAAAAAMAAAD/////AAACAAYAAAAAAP//AAADAAYAAAABAP//AAAEAAYAAAA=")
-tile_set = SubResource("TileSet_ax0jf")
-
-[node name="Player" type="CharacterBody2D" parent="."]
-script = ExtResource("1_43quo")
-dash_allowed = 1
-
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-texture = ExtResource("2_mtgw6")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("CapsuleShape2D_d2v5i")
-
-[node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.5, 0.5)
+[node name="Player" parent="." instance=ExtResource("1_uonkm")]
 
 [node name="Environment" type="Node" parent="."]
 
@@ -273,11 +158,13 @@ shape = SubResource("RectangleShape2D_modps")
 [node name="Sprite2D" type="Sprite2D" parent="Environment/StaticBody2D10"]
 texture = SubResource("GradientTexture2D_sbenm")
 
+[node name="TileMapLayer" parent="Environment" instance=ExtResource("2_2uoqs")]
+
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(-245, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("2_xkivt")
+texture = ExtResource("3_wjn6m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CapsuleShape2D_iudck")
