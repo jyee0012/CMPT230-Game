@@ -4,7 +4,7 @@ enum PlayerState {Idle, Dash, Jump, Walk, Climb, Grapple}
 
 var player: PlayerState = PlayerState.Idle
 const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+const JUMP_VELOCITY = -1200.0
 # jumping
 var jump_count = 0
 @export var jumps_allowed = 2
@@ -47,7 +47,7 @@ func _physics_process(delta: float) -> void:
 		# Add the gravity.
 		if not is_on_floor(): 
 			if not (wall_climb && is_on_wall()):
-				velocity += get_gravity() * delta
+				velocity += get_gravity() * delta * 3
 		else:
 			CountReset()
 		JumpHandler()
