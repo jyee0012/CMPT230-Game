@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7v382reu2u5o"]
+[gd_scene load_steps=10 format=3 uid="uid://b7v382reu2u5o"]
 
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_uonkm"]
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="2_2uoqs"]
 [ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="3_wjn6m"]
+[ext_resource type="AudioStream" path="res://Assets/audio/ancient forest demo.wav" id="4_wda4b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybxwc"]
 
@@ -168,3 +169,7 @@ texture = ExtResource("3_wjn6m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CapsuleShape2D_iudck")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wda4b")
+autoplay = true
