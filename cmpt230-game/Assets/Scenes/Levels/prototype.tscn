@@ -35,10 +35,11 @@ bus = &"walking"
 stream = ExtResource("3_37als")
 bus = &"death"
 
-[node name="dash" type="AudioStreamPlayer2D" parent="Player"]
+[node name="dash" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("4_61c5h")
-volume_db = -20.0
-pitch_scale = 2.0
+volume_db = -16.0
+pitch_scale = 1.5
+bus = &"dash"
 
 [node name="Environment" type="Node" parent="."]
 

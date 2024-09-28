@@ -1,12 +1,31 @@
-[gd_scene load_steps=3 format=4 uid="uid://cjgtyxwmty8my"]
+[gd_scene load_steps=7 format=4 uid="uid://cjgtyxwmty8my"]
 
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_u5jyn"]
+[ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="2_yajee"]
+[ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="3_2ptvv"]
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="3_52q66"]
+[ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_jl12i"]
+[ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="6_7v6pc"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_u5jyn")]
 z_index = 1
+
+[node name="walk" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("2_yajee")
+volume_db = -12.0
+bus = &"walking"
+
+[node name="death" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_2ptvv")
+bus = &"death"
+
+[node name="dash" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_jl12i")
+volume_db = -16.0
+pitch_scale = 1.5
+bus = &"dash"
 
 [node name="Environment" type="Node" parent="."]
 
@@ -15,3 +34,9 @@ tile_map_data = PackedByteArray("AAD//wIAAAAAAAMAAAAAAAIAAAAAAAMAAAABAAMAAAAAAAM
 
 [node name="decorations" parent="Environment" instance=ExtResource("3_52q66")]
 tile_map_data = PackedByteArray("AAD+/wEAAAABAAIAAAD//wEAAAABAAIAAAAAAAEAAAABAAIAAAABAAEAAAAAAAEAAAACAAEAAAACAAEAAAADAAEAAAAFAAcAAAAEAAEAAAABAAEAAAAFAAEAAAAAAAEAAAD+/wAAAAAAAAAAAAD//wAAAAAFAAAAAAAAAAAAAAACAAAAAAABAAAAAAABAAAAAAACAAAAAAABAAAAAAAEAAAAAAAHAAAAAAAFAAAAAAAGAAAAAAADAP//AAAGAAUAAAADAAAAAAAGAAYAAAADAP7/AAAGAAQAAAADAP3/AAAGAAUAAAADAPz/AAAGAAMAAAACAPz/AAAFAAMAAAAEAPz/AAAHAAMAAAAEAPv/AAAHAAEAAAADAPv/AAAFAAEAAAABAPv/AAADAAEAAAABAPz/AAADAAMAAAACAPv/AAAFAAEAAAD9/wAAAAADAAYAAAD8/wAAAAADAAYAAAD7/wAAAAADAAYAAAAIAAEAAAABAAUAAAAJAAEAAAABAAUAAAAKAAEAAAABAAUAAAALAAEAAAABAAUAAAALAAIAAAABAAUAAAALAAMAAAABAAUAAAAKAAMAAAABAAUAAAAKAAIAAAABAAUAAAAJAAIAAAABAAUAAAAIAAIAAAABAAUAAAAJAAMAAAABAAUAAAAIAAMAAAABAAUAAAAOAP//AAABAAUAAAAOAAAAAAABAAUAAAAOAAEAAAABAAUAAAAOAAIAAAABAAUAAAAPAAIAAAABAAUAAAAPAAEAAAABAAUAAAAPAAAAAAABAAUAAAAPAP//AAABAAUAAAAOAP7/AAABAAUAAAAOAP3/AAABAAUAAAAOAPz/AAABAAUAAAAOAPv/AAABAAUAAAAPAPv/AAABAAUAAAAPAPr/AAABAAUAAAAPAPz/AAABAAUAAAAPAP3/AAABAAUAAAAPAP7/AAABAAUAAAAOAPr/AAABAAUAAAANAPr/AAABAAUAAAAMAPr/AAABAAUAAAALAPr/AAABAAUAAAAKAPr/AAABAAUAAAAJAPr/AAABAAUAAAAIAPr/AAABAAUAAAAQAPr/AAABAAUAAAARAPr/AAABAAUAAAASAPr/AAABAAUAAAAUAPr/AAABAAUAAAATAPr/AAABAAUAAAATAAEAAAABAAUAAAATAAIAAAABAAUAAAATAAMAAAABAAUAAAAUAAMAAAABAAUAAAAVAAMAAAABAAUAAAAVAAIAAAABAAUAAAAWAAIAAAABAAUAAAAXAAIAAAABAAUAAAAXAAEAAAABAAUAAAAWAAEAAAABAAUAAAAVAAEAAAABAAUAAAAUAAIAAAABAAUAAAAUAAEAAAABAAUAAAAWAAMAAAABAAUAAAAXAAMAAAABAAUAAAA=")
+
+[node name="background" type="AudioStreamPlayer" parent="Environment"]
+stream = ExtResource("6_7v6pc")
+volume_db = -16.0
+autoplay = true
+bus = &"background"
