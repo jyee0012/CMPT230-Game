@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://0oibpuq10ucc"
+path="res://.godot/imported/ancient forest demo.wav-24f52adb9c92839bb7ab3e692a10c082.sample"
+
+[deps]
+
+source_file="res://Assets/audio/level/ancient forest demo.wav"
+dest_files=["res://.godot/imported/ancient forest demo.wav-24f52adb9c92839bb7ab3e692a10c082.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

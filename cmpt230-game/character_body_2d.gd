@@ -62,10 +62,20 @@ func CountReset() -> void:
 	dash_count = 0
 	
 func GetInput() -> void:
+	#check if walking and not jumping then play sound if not playing
+	if velocity.y == 0 and Input.get_axis("left", "right"):
+		#print_debug("walk")
+		if not $walk.playing:
+			$walk.play()
+	else:
+		#print_debug("not walking")
+		if $walk.playing:
+			$walk.stop()
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
 	if Input.is_action_just_pressed("dash") and can_dash and dash_count < dash_allowed:
 		velocity.x = facing * SPEED * 10
+		$dash.play()
 		dashing = true
 		dash_count+=1
 	else:
@@ -81,6 +91,8 @@ func GetInput() -> void:
 				$Sprite2D.flip_h = velocity.x <= 0
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
+				
+				
 func JumpHandler() -> void:
 	if is_on_wall() and wall_jump:
 		CountReset()
@@ -99,6 +111,7 @@ func JumpHandler() -> void:
 func DeathHandler() -> void:
 	# death handling
 	if (position.y > 1000):
+		$death.play()
 		set_position(Vector2(0, 38))
 		death_count+=1
 		print(str(["Death: ", death_count]))	
