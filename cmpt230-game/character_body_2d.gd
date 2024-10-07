@@ -19,17 +19,25 @@ var dashing = false
 # grapple
 @export var has_grapple = true
 var grapple_range = 50
-var grapple_speed = 5000.0
+var grapple_speed = 500.0
 var grapple_active = false
-
+var timeStamp;
 var death_count = 0
 
 func _physics_process(delta: float) -> void:
 	if player == PlayerState.Grapple:
-		velocity += Vector2(facing, -1) * SPEED
+		velocity += Vector2(facing, -1) * grapple_speed
 		print_debug(velocity)
+		if velocity.x <= grapple_speed and delta > timeStamp:
+			velocity = Vector2.ZERO
+			velocity.y = 0 
 		if is_on_wall() or Input.is_action_just_pressed("jump"):
 			player = PlayerState.Idle
+			if is_on_wall():
+				#print_debug("on wall")
+				velocity.y = 0
+		
+		move_and_slide()
 	elif player == PlayerState.Dash:
 		print_debug("dash")
 	elif player == PlayerState.Climb:
@@ -51,11 +59,12 @@ func _physics_process(delta: float) -> void:
 		else:
 			CountReset()
 		JumpHandler()
+		move_and_slide() #moved here to give prio to jump in order to prevent hugging the wall while wall jumping
 		DeathHandler()	
 		GetInput()
-	move_and_slide()
 	if Input.is_action_just_pressed("grapple") and has_grapple:
 		player = PlayerState.Grapple
+		timeStamp = delta + 2
 		print_debug("attempted to grapple.")
 func CountReset() -> void:
 	jump_count = 0
