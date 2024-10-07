@@ -42,6 +42,32 @@ volume_db = -16.0
 pitch_scale = 1.5
 bus = &"dash"
 
+[node name="Control" type="Control" parent="Player"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Player/Control"]
+layout_mode = 0
+offset_left = -1080.0
+offset_top = -600.0
+offset_right = -1040.0
+offset_bottom = -577.0
+scale = Vector2(1.96052, 2.28597)
+text = "Keyboard:
+Arrow Keys = Movement
+Space = Jump
+Shift = Dash
+A = Grapple
+D = Death
+
+Controller:
+Left Analog = Movement
+A = Jump
+RB = Dash
+X = Grapple"
+
 [node name="Environment" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Environment"]

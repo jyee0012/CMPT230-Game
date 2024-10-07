@@ -25,6 +25,8 @@ var timeStamp;
 var death_count = 0
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("debug"):
+		DeathHandler()
 	if player == PlayerState.Grapple:
 		velocity += Vector2(facing, -1) * grapple_speed
 		print_debug(velocity)
@@ -43,7 +45,9 @@ func _physics_process(delta: float) -> void:
 	elif player == PlayerState.Climb:
 		print_debug("climb")
 		JumpHandler()
-		DeathHandler()	
+		# death handling
+		if (position.y > 1000):
+			DeathHandler()	
 		GetInput()
 	#elif player == PlayerState.Jump:
 		#print_debug("jump")
@@ -60,7 +64,9 @@ func _physics_process(delta: float) -> void:
 			CountReset()
 		JumpHandler()
 		move_and_slide() #moved here to give prio to jump in order to prevent hugging the wall while wall jumping
-		DeathHandler()	
+		# death handling
+		if (position.y > 1000):
+			DeathHandler()	
 		GetInput()
 	if Input.is_action_just_pressed("grapple") and has_grapple:
 		player = PlayerState.Grapple
@@ -118,9 +124,9 @@ func JumpHandler() -> void:
 		if is_on_wall() and wall_jump:
 			velocity.x = -facing * SPEED * 10
 func DeathHandler() -> void:
-	# death handling
-	if (position.y > 1000):
 		$death.play()
 		set_position(Vector2(0, 38))
 		death_count+=1
+		player = PlayerState.Idle
+		velocity = Vector2.ZERO 
 		print(str(["Death: ", death_count]))	
