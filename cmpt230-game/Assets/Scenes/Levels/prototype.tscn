@@ -1,8 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7v382reu2u5o"]
+[gd_scene load_steps=13 format=3 uid="uid://b7v382reu2u5o"]
 
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_uonkm"]
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="2_2uoqs"]
+[ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="2_x6cx1"]
+[ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="3_37als"]
 [ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="3_wjn6m"]
+[ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_61c5h"]
+[ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="4_wda4b"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ybxwc"]
 
@@ -22,6 +26,48 @@ height = 165.0
 
 [node name="Player" parent="." instance=ExtResource("1_uonkm")]
 jumps_allowed = 1
+
+[node name="walk" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("2_x6cx1")
+volume_db = -12.0
+bus = &"walking"
+
+[node name="death" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_37als")
+bus = &"death"
+
+[node name="dash" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("4_61c5h")
+volume_db = -16.0
+pitch_scale = 1.5
+bus = &"dash"
+
+[node name="Control" type="Control" parent="Player"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Player/Control"]
+layout_mode = 0
+offset_left = -1080.0
+offset_top = -600.0
+offset_right = -1040.0
+offset_bottom = -577.0
+scale = Vector2(1.96052, 2.28597)
+text = "Keyboard:
+Arrow Keys = Movement
+Space = Jump
+Shift = Dash
+A = Grapple
+D = Death
+
+Controller:
+Left Analog = Movement
+A = Jump
+RB = Dash
+X = Grapple"
+
 
 [node name="Environment" type="Node" parent="."]
 
@@ -161,6 +207,12 @@ texture = SubResource("GradientTexture2D_sbenm")
 
 [node name="TileMapLayer" parent="Environment" instance=ExtResource("2_2uoqs")]
 
+[node name="background" type="AudioStreamPlayer" parent="Environment"]
+stream = ExtResource("4_wda4b")
+volume_db = -16.0
+autoplay = true
+bus = &"background"
+
 [node name="Enemy" type="CharacterBody2D" parent="."]
 position = Vector2(-245, 0)
 
@@ -169,3 +221,7 @@ texture = ExtResource("3_wjn6m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
 shape = SubResource("CapsuleShape2D_iudck")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_wda4b")
+autoplay = true
