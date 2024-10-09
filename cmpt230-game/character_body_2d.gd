@@ -103,7 +103,7 @@ func GetInput() -> void:
 			if direction:
 				facing = direction
 				velocity.x = direction * SPEED
-				$Sprite2D.flip_h = velocity.x <= 0
+				$Sprite2D.flip_h = velocity.x >= 0
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				

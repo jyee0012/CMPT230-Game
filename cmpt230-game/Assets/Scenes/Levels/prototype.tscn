@@ -68,6 +68,7 @@ A = Jump
 RB = Dash
 X = Grapple"
 
+
 [node name="Environment" type="Node" parent="."]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Environment"]
