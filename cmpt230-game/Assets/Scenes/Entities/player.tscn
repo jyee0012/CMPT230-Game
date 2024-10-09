@@ -1,21 +1,27 @@
 [gd_scene load_steps=4 format=3 uid="uid://cyc841wfb48xn"]
 
-[ext_resource type="Script" path="res://character_body_2d.gd" id="1_6p6h4"]
-[ext_resource type="Texture2D" uid="uid://ccyrw3274bjkp" path="res://Assets/Sprites/Playercharacter/Smallman.png" id="2_t7jth"]
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_gaxvp"]
+[ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="2_k2547"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2v5i"]
 radius = 55.0
 height = 164.0
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_6p6h4")
-dash_allowed = 1
+script = ExtResource("1_gaxvp")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_t7jth")
+texture = ExtResource("2_k2547")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_d2v5i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
+
+[node name="CoyoteTime" type="Timer" parent="."]
+process_callback = 0
+wait_time = 0.15
+one_shot = true
+
+[connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]

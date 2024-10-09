@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="CMPT230-Game"
-run/main_scene="res://Assets/Scenes/Levels/prototype.tscn"
+run/main_scene="res://Assets/Scenes/Levels/testlevel.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -67,3 +67,4 @@ grapple={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0.388235, 0.607843, 1, 1)
