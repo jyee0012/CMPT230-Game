@@ -19,23 +19,35 @@ var dashing = false
 # grapple
 @export var has_grapple = true
 var grapple_range = 50
-var grapple_speed = 5000.0
+var grapple_speed = 500.0
 var grapple_active = false
-
+var timeStamp;
 var death_count = 0
 
 func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed("debug"):
+		DeathHandler()
 	if player == PlayerState.Grapple:
-		velocity += Vector2(facing, -1) * SPEED
+		velocity += Vector2(facing, -1) * grapple_speed
 		print_debug(velocity)
+		if velocity.x <= grapple_speed and delta > timeStamp:
+			velocity = Vector2.ZERO
+			velocity.y = 0 
 		if is_on_wall() or Input.is_action_just_pressed("jump"):
 			player = PlayerState.Idle
+			if is_on_wall():
+				#print_debug("on wall")
+				velocity.y = 0
+		
+		move_and_slide()
 	elif player == PlayerState.Dash:
 		print_debug("dash")
 	elif player == PlayerState.Climb:
 		print_debug("climb")
 		JumpHandler()
-		DeathHandler()	
+		# death handling
+		if (position.y > 1000):
+			DeathHandler()	
 		GetInput()
 	#elif player == PlayerState.Jump:
 		#print_debug("jump")
@@ -51,11 +63,14 @@ func _physics_process(delta: float) -> void:
 		else:
 			CountReset()
 		JumpHandler()
-		DeathHandler()	
+		move_and_slide() #moved here to give prio to jump in order to prevent hugging the wall while wall jumping
+		# death handling
+		if (position.y > 1000):
+			DeathHandler()	
 		GetInput()
-	move_and_slide()
 	if Input.is_action_just_pressed("grapple") and has_grapple:
 		player = PlayerState.Grapple
+		timeStamp = delta + 2
 		print_debug("attempted to grapple.")
 func CountReset() -> void:
 	jump_count = 0
@@ -88,7 +103,7 @@ func GetInput() -> void:
 			if direction:
 				facing = direction
 				velocity.x = direction * SPEED
-				$Sprite2D.flip_h = velocity.x <= 0
+				$Sprite2D.flip_h = velocity.x >= 0
 			else:
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 				
@@ -109,9 +124,9 @@ func JumpHandler() -> void:
 		if is_on_wall() and wall_jump:
 			velocity.x = -facing * SPEED * 10
 func DeathHandler() -> void:
-	# death handling
-	if (position.y > 1000):
 		$death.play()
 		set_position(Vector2(0, 38))
 		death_count+=1
+		player = PlayerState.Idle
+		velocity = Vector2.ZERO 
 		print(str(["Death: ", death_count]))	
