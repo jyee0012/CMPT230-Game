@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cyc841wfb48xn"]
+[gd_scene load_steps=10 format=3 uid="uid://cyc841wfb48xn"]
 
-[ext_resource type="Script" path="res://DMovement.gd" id="1_g34sx"]
+[ext_resource type="Script" path="res://Assets/Scripts/DMovement.gd" id="1_g34sx"]
 [ext_resource type="Material" uid="uid://u1fm81ih6av4" path="res://Assets/Sprites/Playercharacter/flashmaterial.tres" id="2_4x2vb"]
 [ext_resource type="Texture2D" uid="uid://dlf286bbm53ah" path="res://Assets/Sprites/Enemies/Mousepants.png" id="2_k2547"]
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="3_ui3ni"]
+[ext_resource type="Script" path="res://Assets/Scenes/Entities/PlayerCam.gd" id="4_p5o3m"]
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="4_udpii"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="5_4xfvd"]
 
@@ -11,13 +12,16 @@
 radius = 55.0
 height = 160.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_xweso"]
+radius = 48.1664
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_g34sx")
 speed = 750
 accel = 300
 decel = 300
 jumpPow = 2000
-gravMult = 5
+gravMult = 4
 dashSpeed = 5000
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -30,6 +34,7 @@ shape = SubResource("CapsuleShape2D_d2v5i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
+script = ExtResource("4_p5o3m")
 
 [node name="CoyoteTime" type="Timer" parent="."]
 process_callback = 0
@@ -59,6 +64,11 @@ volume_db = -25.0
 stream = ExtResource("5_4xfvd")
 volume_db = -25.0
 parameters/looping = true
+
+[node name="Hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_xweso")
 
 [connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
