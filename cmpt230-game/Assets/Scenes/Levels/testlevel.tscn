@@ -1,18 +1,25 @@
-[gd_scene load_steps=7 format=4 uid="uid://cjgtyxwmty8my"]
+[gd_scene load_steps=9 format=4 uid="uid://cjgtyxwmty8my"]
 
+[ext_resource type="PackedScene" uid="uid://c4vq2n48pp2r2" path="res://Assets/Scenes/Entities/game_data.tscn" id="1_c856b"]
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_u5jyn"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="2_yajee"]
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="3_2ptvv"]
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="3_52q66"]
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_jl12i"]
 [ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="6_7v6pc"]
+[ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="7_tmcj8"]
 
 [node name="Node2D" type="Node2D"]
+
+[node name="GameData" parent="." instance=ExtResource("1_c856b")]
+DashUnlocked = true
+DashesUnlocked = 2
 
 [node name="Player" parent="." instance=ExtResource("1_u5jyn")]
 z_index = 1
 floor_constant_speed = true
 floor_snap_length = 9.0
+maxDashes = 1
 
 [node name="walk" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("2_yajee")
@@ -42,3 +49,9 @@ stream = ExtResource("6_7v6pc")
 volume_db = -16.0
 autoplay = true
 bus = &"background"
+
+[node name="Item" parent="." instance=ExtResource("7_tmcj8")]
+position = Vector2(1599, 0)
+
+[connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
+[connection signal="collected" from="Item" to="GameData" method="_on_item_collected"]
