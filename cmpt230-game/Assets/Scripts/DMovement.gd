@@ -18,13 +18,16 @@ var maxJumps = 0
 var coyote = false
 var timesJumped = 0
 var timesDashed = 0
-
+@export var hasGrapple = true
+@export var grappleSpeed = 200
+var startPos
 
 func _ready() -> void:
 	state = playerState.Idle
 	facing = directions.Right
 	WalljumpUnlocked = true
 	$Sounds/Walking.play()
+	startPos = position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -57,10 +60,11 @@ func _physics_process(delta: float) -> void:
 			changeState()
 			movement(delta)
 		playerState.Grapple:
-			pass
+			grappleHandle()
 		playerState.Attack:
 			pass
 	#print(state)
+	deathHandle()
 	move_and_slide()
 	
 #handles character movement and state swapping for movement related states (idle, airborne, moving)
@@ -171,7 +175,22 @@ func changeState() -> void:
 		state = playerState.Wallslide
 	else:
 		state = playerState.Airborne
+	if hasGrapple and Input.is_action_just_pressed("grapple"):
+		state = playerState.Grapple
 
+func grappleHandle() -> void:
+	var face = facing
+	if facing == 0: face = -1
+	velocity += Vector2(face, -1) * grappleSpeed
+	if is_on_wall() or Input.is_action_just_pressed("jump"):
+		state = playerState.Idle
+		if is_on_wall():
+			#print_debug("on wall")
+			velocity.y = 0
+
+func deathHandle() -> void:
+	if Input.is_action_just_pressed("debug"):
+		position = startPos
 
 func _on_game_data_dash_collect() -> void:
 	maxDashes += 1

@@ -30,9 +30,6 @@ func _physics_process(delta: float) -> void:
 	if player == PlayerState.Grapple:
 		velocity += Vector2(facing, -1) * grapple_speed
 		print_debug(velocity)
-		if velocity.x <= grapple_speed and delta > timeStamp:
-			velocity = Vector2.ZERO
-			velocity.y = 0 
 		if is_on_wall() or Input.is_action_just_pressed("jump"):
 			player = PlayerState.Idle
 			if is_on_wall():
