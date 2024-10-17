@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlf286bbm53ah"
-path="res://.godot/imported/Mousepants.png-11442c84dd63f17f30e1f748d4725315.ctex"
+uid="uid://buk52npxrlvxl"
+path="res://.godot/imported/cheeseheart.png-2a891ed52fc8b20623c3972fefd46adb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Enemies/Mousepants.png"
-dest_files=["res://.godot/imported/Mousepants.png-11442c84dd63f17f30e1f748d4725315.ctex"]
+source_file="res://Assets/Sprites/Items/cheeseheart.png"
+dest_files=["res://.godot/imported/cheeseheart.png-2a891ed52fc8b20623c3972fefd46adb.ctex"]
 
 [params]
 
