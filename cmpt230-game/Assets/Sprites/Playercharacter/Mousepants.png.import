@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccyrw3274bjkp"
-path="res://.godot/imported/Smallman.png-a86b2212478ec49afe08174f8f646d52.ctex"
+uid="uid://dlf286bbm53ah"
+path="res://.godot/imported/Mousepants.png-071a2797a99cc84278e1d5e14dc949e0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Playercharacter/Smallman.png"
-dest_files=["res://.godot/imported/Smallman.png-a86b2212478ec49afe08174f8f646d52.ctex"]
+source_file="res://Assets/Sprites/Playercharacter/Mousepants.png"
+dest_files=["res://.godot/imported/Mousepants.png-071a2797a99cc84278e1d5e14dc949e0.ctex"]
 
 [params]
 
