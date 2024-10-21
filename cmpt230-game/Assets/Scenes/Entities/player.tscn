@@ -16,6 +16,7 @@ height = 160.0
 radius = 48.1664
 
 [node name="Player" type="CharacterBody2D"]
+safe_margin = 0.2
 script = ExtResource("1_g34sx")
 speed = 750
 accel = 300
@@ -23,6 +24,7 @@ decel = 300
 jumpPow = 2000
 gravMult = 4
 dashSpeed = 5000
+grapple_range = 500
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = ExtResource("2_4x2vb")
@@ -36,18 +38,24 @@ shape = SubResource("CapsuleShape2D_d2v5i")
 zoom = Vector2(0.5, 0.5)
 script = ExtResource("4_p5o3m")
 
-[node name="CoyoteTime" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="CoyoteTime" type="Timer" parent="Timers"]
 process_callback = 0
 wait_time = 0.15
 one_shot = true
 
-[node name="DashCooldown" type="Timer" parent="."]
+[node name="DashCooldown" type="Timer" parent="Timers"]
 process_callback = 0
 one_shot = true
 
-[node name="FlashTime" type="Timer" parent="."]
+[node name="FlashTime" type="Timer" parent="Timers"]
 process_callback = 0
 wait_time = 0.005
+one_shot = true
+
+[node name="WallTime" type="Timer" parent="Timers"]
+process_callback = 0
 one_shot = true
 
 [node name="Sounds" type="Node" parent="."]
@@ -70,6 +78,10 @@ parameters/looping = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_xweso")
 
-[connection signal="timeout" from="CoyoteTime" to="." method="_on_coyote_time_timeout"]
-[connection signal="timeout" from="DashCooldown" to="." method="_on_dash_cooldown_timeout"]
-[connection signal="timeout" from="FlashTime" to="." method="_on_flash_time_timeout"]
+[node name="Line2D" type="Line2D" parent="."]
+closed = true
+
+[connection signal="timeout" from="Timers/CoyoteTime" to="." method="_on_coyote_time_timeout"]
+[connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
+[connection signal="timeout" from="Timers/FlashTime" to="." method="_on_flash_time_timeout"]
+[connection signal="timeout" from="Timers/WallTime" to="." method="_on_wall_time_timeout"]
