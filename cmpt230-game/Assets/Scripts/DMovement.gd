@@ -20,18 +20,21 @@ var timesJumped = 0
 var timesDashed = 0
 @export var hasGrapple = false
 @export var grappleSpeed = 200
+@export var grapple_range = 600
 var startPos
+var sliding = false
 var hp
 var maxHp = 5
 @export var canAttack = false
 @export var attackRange = 500
 @export var attackDmg = 1
 
+
 func _ready() -> void:
 	state = playerState.Idle
 	facing = directions.Right
 	WalljumpUnlocked = true
-	$Sounds/Walking.play()
+	$Sounds/Walking.play()#walking sfx is paused whenever in idle state and unpaused when walking
 	startPos = position
 	hp = maxHp
 
@@ -40,6 +43,7 @@ func _process(_delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
+	#print("(",velocity.x, ", ", velocity.y,")")
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true
@@ -102,9 +106,10 @@ func jumpHandle(delta: float) -> void:
 	
 	if is_on_floor():
 		coyote = true
+		sliding = false
 		timesJumped = 0
-	elif $CoyoteTime.is_stopped() and coyote:
-		$CoyoteTime.start()
+	elif $Timers/CoyoteTime.is_stopped() and coyote:
+		$Timers/CoyoteTime.start()
 		
 	
 	
@@ -134,7 +139,7 @@ func dashHandle() -> void:
 	$Sounds/Dash.play()
 	timesDashed += 1
 	if timesDashed == 1:
-		$DashCooldown.start()
+		$Timers/DashCooldown.start()
 	#velocity.y = 0
 	if facing == directions.Left:
 		velocity.x -= dashSpeed 
@@ -148,19 +153,26 @@ func dashHandle() -> void:
 func _on_dash_cooldown_timeout() -> void:
 	timesDashed = 0
 	$Sprite2D.use_parent_material = false
-	$FlashTime.start()
+	$Timers/FlashTime.start()
 
 func _on_flash_time_timeout() -> void:
 	$Sprite2D.use_parent_material = true
 
 func wallHandle() -> void:
 	#print(velocity)
+	if $Timers/WallTime.is_stopped() and not sliding:
+		$Timers/WallTime.start() 
+		
+	
 	if velocity.x == 0:
-		velocity.y = 0
+		if sliding:
+			velocity.y = 20
+		else:
+			velocity.y = 0
 	
 	if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
 		coyote = true
-		$CoyoteTime.start
+		$Timers/CoyoteTime.start
 		 
 	if Input.is_action_just_pressed("jump"):
 		#print("walljump")
@@ -187,7 +199,25 @@ func changeState() -> void:
 func grappleHandle() -> void:
 	var face = facing
 	if facing == 0: face = -1
-	velocity += Vector2(face, -1) * grappleSpeed
+	var space_rid = get_world_2d().space
+	var space_state = PhysicsServer2D.space_get_direct_state(space_rid)
+	var target = Vector2(position.x + face*grapple_range, position.y -grapple_range)
+	var query = PhysicsRayQueryParameters2D.create(position,target)
+	var result = space_state.intersect_ray(query)
+	
+	if result:
+		print("hit at point ", result.position)
+		velocity += Vector2(face, -1) * grappleSpeed
+		$Line2D.add_point(position)
+		$Line2D.add_point(target)
+		draw_line(position,target,Color.BROWN,2)
+	else:
+		state = playerState.Idle
+		
+		
+	
+	
+	
 	if is_on_wall() or Input.is_action_just_pressed("jump"):
 		state = playerState.Idle
 		if is_on_wall():
@@ -197,9 +227,14 @@ func grappleHandle() -> void:
 func deathHandle() -> void:
 	if Input.is_action_just_pressed("debug"):
 		position = startPos
+		velocity = Vector2.ZERO
 
 func _on_game_data_dash_collect() -> void:
 	maxDashes += 1
+
+func _on_wall_time_timeout() -> void:
+	sliding = true
+
 func _on_game_data_hp_collect() -> void:
 	playerUpdateHp()
 func _on_game_data_wing_collect() -> void:
@@ -217,3 +252,4 @@ func playerUpdateHp(n:int = 1) -> void:
 		deathHandle()
 func playerResetHp() -> void:
 	hp = maxHp	
+
