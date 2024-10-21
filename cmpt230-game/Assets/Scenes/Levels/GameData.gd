@@ -7,10 +7,12 @@ extends Node
 @export var JumpsUnlocked = 1
 
 signal dash_collect
-
+signal hp_collect
+signal whip_collect
+signal wing_collect
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
@@ -19,8 +21,13 @@ func _on_item_boot_collected() -> void:
 
 
 func _on_item_health_collected() -> void:
-	print("nice health, but we aint implemented that yet")
+	emit_signal("hp_collect")
+	#print("nice health, but we aint implemented that yet")
 
 
 func _on_item_whip_collected() -> void:
-	print("nice whip, but we aint implemented that yet")
+	emit_signal("whip_collect")
+	#print("nice whip, but we aint implemented that yet")
+
+func _on_item_wing_collected() ->void:
+	emit_signal("wing_collect")

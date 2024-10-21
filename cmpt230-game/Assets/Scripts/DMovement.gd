@@ -18,11 +18,17 @@ var maxJumps = 0
 var coyote = false
 var timesJumped = 0
 var timesDashed = 0
-@export var hasGrapple = true
+@export var hasGrapple = false
 @export var grappleSpeed = 200
 @export var grapple_range = 600
 var startPos
 var sliding = false
+var hp
+var maxHp = 5
+@export var canAttack = false
+@export var attackRange = 500
+@export var attackDmg = 1
+
 
 func _ready() -> void:
 	state = playerState.Idle
@@ -30,9 +36,10 @@ func _ready() -> void:
 	WalljumpUnlocked = true
 	$Sounds/Walking.play()#walking sfx is paused whenever in idle state and unpaused when walking
 	startPos = position
+	hp = maxHp
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 	
 func _physics_process(delta: float) -> void:
@@ -111,8 +118,8 @@ func jumpHandle(delta: float) -> void:
 		coyote = false
 		velocity.y = -jumpPow
 		#print(velocity.y)
-	if not Input.is_action_pressed("jump") and velocity.y < -(jumpPow/2):
-		velocity.y = -(jumpPow/2)
+	if not Input.is_action_pressed("jump") and velocity.y < -(jumpPow/2.0):
+		velocity.y = -(jumpPow/2.0)
 
 func canJump() -> bool:
 	return is_on_floor() or doubleJump() or coyote
@@ -227,3 +234,22 @@ func _on_game_data_dash_collect() -> void:
 
 func _on_wall_time_timeout() -> void:
 	sliding = true
+
+func _on_game_data_hp_collect() -> void:
+	playerUpdateHp()
+func _on_game_data_wing_collect() -> void:
+	maxJumps += 1
+func _on_game_data_whip_collect() -> void:
+	canAttack = true
+	hasGrapple = true
+	print("can attack")
+func playerUpdateHp(n:int = 1) -> void:
+	print("hp update:", hp)
+	hp += n
+	if (hp > maxHp):
+		hp = maxHp
+	if (hp <= 0):
+		deathHandle()
+func playerResetHp() -> void:
+	hp = maxHp	
+
