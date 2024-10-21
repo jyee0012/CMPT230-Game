@@ -3,8 +3,9 @@ extends Node2D
 signal boot_collected
 signal whip_collected
 signal health_collected
+signal wing_collected
 
-enum type {boot, whip, health}
+enum type {boot, whip, health, wing}
 
 @export var item: type
 
@@ -18,6 +19,8 @@ func _ready() -> void:
 			sprite.texture = load("res://Assets/Sprites/Items/whip.png")
 		type.health:
 			sprite.texture = load("res://Assets/Sprites/Items/cheeseheart.png")
+		type.wing:
+			sprite.texture = load("res://Assets/Sprites/Items/boot.png")
 
 func _on_area_2d_area_entered(area: Area2D) -> void:
 	match item:
@@ -27,5 +30,7 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 			emit_signal("whip_collected")
 		type.health:
 			emit_signal("health_collected")
+		type.wing:
+			emit_signal("wing_collected")
 	
 	queue_free()
