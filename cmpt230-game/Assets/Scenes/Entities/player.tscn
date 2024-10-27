@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cyc841wfb48xn"]
+[gd_scene load_steps=11 format=3 uid="uid://cyc841wfb48xn"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/DMovement.gd" id="1_g34sx"]
 [ext_resource type="Material" uid="uid://u1fm81ih6av4" path="res://Assets/Sprites/Playercharacter/flashmaterial.tres" id="2_4x2vb"]
@@ -14,6 +14,8 @@ height = 160.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xweso"]
 radius = 48.1664
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n07sd"]
 
 [node name="Player" type="CharacterBody2D"]
 safe_margin = 0.2
@@ -58,6 +60,9 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
+[node name="CooldownTimer" type="Timer" parent="Timers"]
+process_callback = 0
+
 [node name="Sounds" type="Node" parent="."]
 
 [node name="Dash" type="AudioStreamPlayer" parent="Sounds"]
@@ -81,7 +86,20 @@ shape = SubResource("CircleShape2D_xweso")
 [node name="Line2D" type="Line2D" parent="."]
 closed = true
 
+[node name="ShapeCastLeft" type="ShapeCast2D" parent="."]
+position = Vector2(-149, -20)
+scale = Vector2(18.4212, 2.92064)
+shape = SubResource("RectangleShape2D_n07sd")
+target_position = Vector2(0, 20)
+
+[node name="ShapeCastRight" type="ShapeCast2D" parent="."]
+position = Vector2(125, -20)
+scale = Vector2(18.4212, 2.92064)
+shape = SubResource("RectangleShape2D_n07sd")
+target_position = Vector2(0, 20)
+
 [connection signal="timeout" from="Timers/CoyoteTime" to="." method="_on_coyote_time_timeout"]
 [connection signal="timeout" from="Timers/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="Timers/FlashTime" to="." method="_on_flash_time_timeout"]
 [connection signal="timeout" from="Timers/WallTime" to="." method="_on_wall_time_timeout"]
+[connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
