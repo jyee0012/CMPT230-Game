@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=4 uid="uid://cjgtyxwmty8my"]
+[gd_scene load_steps=12 format=4 uid="uid://cjgtyxwmty8my"]
 
 [ext_resource type="PackedScene" uid="uid://c4vq2n48pp2r2" path="res://Assets/Scenes/Entities/game_data.tscn" id="1_c856b"]
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_u5jyn"]
@@ -8,6 +8,10 @@
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_jl12i"]
 [ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="6_7v6pc"]
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="7_tmcj8"]
+[ext_resource type="Script" path="res://Assets/Scenes/Levels/enemy.gd" id="9_6deat"]
+[ext_resource type="Texture2D" uid="uid://djf65gigdf4m7" path="res://Assets/Sprites/Enemies/MobCat.png" id="10_a261n"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qln13"]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(1, 0)
@@ -16,11 +20,9 @@ position = Vector2(1, 0)
 DashUnlocked = true
 DashesUnlocked = 2
 
-[node name="Player" parent="." instance=ExtResource("1_u5jyn")]
+[node name="Player" parent="." groups=["Player"] instance=ExtResource("1_u5jyn")]
 z_index = 1
-
-position = Vector2(4452, 198)
-
+position = Vector2(-644, -378)
 collision_layer = 3
 floor_constant_speed = true
 floor_snap_length = 9.0
@@ -40,10 +42,6 @@ volume_db = -16.0
 pitch_scale = 1.5
 bus = &"dash"
 
-
-[node name="Item2" parent="." instance=ExtResource("7_tmcj8")]
-position = Vector2(5109, 118)
-
 [node name="Control" type="Control" parent="Player"]
 layout_mode = 3
 anchors_preset = 0
@@ -55,6 +53,8 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 
+[node name="Item2" parent="." instance=ExtResource("7_tmcj8")]
+position = Vector2(5109, 118)
 
 [node name="Environment" type="Node" parent="."]
 
@@ -74,27 +74,41 @@ bus = &"background"
 position = Vector2(1599, 0)
 item = 0
 
-
-[node name="Item2" parent="." instance=ExtResource("7_tmcj8")]
+[node name="Item3" parent="." instance=ExtResource("7_tmcj8")]
 position = Vector2(-870, -332)
 item = 2
 
-
-[node name="Item3" parent="." instance=ExtResource("7_tmcj8")]
+[node name="Item4" parent="." instance=ExtResource("7_tmcj8")]
 position = Vector2(349, -357)
+
+[node name="Enemy" type="CharacterBody2D" parent="." groups=["Enemies"]]
+script = ExtResource("9_6deat")
+patrolRange = 300
+
+[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
+texture = ExtResource("10_a261n")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+scale = Vector2(5.24129, 5.40501)
+shape = SubResource("CapsuleShape2D_qln13")
 
 [connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
 [connection signal="hp_collect" from="GameData" to="Player" method="_on_game_data_hp_collect"]
 [connection signal="whip_collect" from="GameData" to="Player" method="_on_game_data_whip_collect"]
 [connection signal="wing_collect" from="GameData" to="Player" method="_on_game_data_wing_collect"]
-[connection signal="boot_collected" from="Item" to="GameData" method="_on_item_boot_collected"]
-[connection signal="health_collected" from="Item" to="GameData" method="_on_item_health_collected"]
-[connection signal="whip_collected" from="Item" to="GameData" method="_on_item_whip_collected"]
 [connection signal="boot_collected" from="Item2" to="GameData" method="_on_item_boot_collected"]
 [connection signal="health_collected" from="Item2" to="GameData" method="_on_item_health_collected"]
 [connection signal="whip_collected" from="Item2" to="GameData" method="_on_item_whip_collected"]
 [connection signal="wing_collected" from="Item2" to="GameData" method="_on_item_wing_collected"]
+[connection signal="boot_collected" from="Item" to="GameData" method="_on_item_boot_collected"]
+[connection signal="health_collected" from="Item" to="GameData" method="_on_item_health_collected"]
+[connection signal="whip_collected" from="Item" to="GameData" method="_on_item_whip_collected"]
+[connection signal="wing_collected" from="Item" to="GameData" method="_on_item_wing_collected"]
 [connection signal="boot_collected" from="Item3" to="GameData" method="_on_item_boot_collected"]
 [connection signal="health_collected" from="Item3" to="GameData" method="_on_item_health_collected"]
 [connection signal="whip_collected" from="Item3" to="GameData" method="_on_item_whip_collected"]
 [connection signal="wing_collected" from="Item3" to="GameData" method="_on_item_wing_collected"]
+[connection signal="boot_collected" from="Item4" to="GameData" method="_on_item_boot_collected"]
+[connection signal="health_collected" from="Item4" to="GameData" method="_on_item_health_collected"]
+[connection signal="whip_collected" from="Item4" to="GameData" method="_on_item_whip_collected"]
+[connection signal="wing_collected" from="Item4" to="GameData" method="_on_item_wing_collected"]

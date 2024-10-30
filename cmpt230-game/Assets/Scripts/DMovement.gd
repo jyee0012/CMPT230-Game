@@ -74,6 +74,8 @@ func _physics_process(delta: float) -> void:
 		playerState.Attack:
 			pass
 	#print(state)
+	
+	attackHandle()
 	deathHandle()
 	move_and_slide()
 	
@@ -206,11 +208,11 @@ func grappleHandle() -> void:
 	var result = space_state.intersect_ray(query)
 	
 	if result:
-		print("hit at point ", result.position)
+	#	print("hit at point ", result.position)
 		velocity += Vector2(face, -1) * grappleSpeed
 		$Line2D.add_point(position)
 		$Line2D.add_point(target)
-		draw_line(position,target,Color.BROWN,2)
+	#	draw_line(position,target,Color.BROWN,2)
 	else:
 		state = playerState.Idle
 		
@@ -228,7 +230,22 @@ func deathHandle() -> void:
 	if Input.is_action_just_pressed("debug"):
 		position = startPos
 		velocity = Vector2.ZERO
+func attackHandle() -> void:
+	if Input.is_action_just_pressed("attack") and canAttack:
+		canAttack = false
+		$Timers/CooldownTimer.start()
+		var hitbox
+		if facing == directions.Right:
+			hitbox = $ShapeCastRight
+		elif facing == directions.Left:
+			hitbox = $ShapeCastLeft
+		if hitbox.is_colliding():
+			if hitbox.get_collider(0).is_in_group("Enemies"):
+				hitbox.get_collider(0).takeDamage(5)
+				#print("did dmg")
 
+func _on_cooldown_timer_timeout() -> void:
+	canAttack = true
 func _on_game_data_dash_collect() -> void:
 	maxDashes += 1
 
@@ -252,4 +269,3 @@ func playerUpdateHp(n:int = 1) -> void:
 		deathHandle()
 func playerResetHp() -> void:
 	hp = maxHp	
-
