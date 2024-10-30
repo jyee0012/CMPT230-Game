@@ -47,18 +47,22 @@ func _physics_process(delta: float) -> void:
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true
+			$Sprite2D.play("Idle")
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
 			dashHandle()
 		playerState.Move:
 			$Sounds/Walking.stream_paused = false
+			$Sprite2D.play("Run")
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
 			dashHandle()
 		playerState.Airborne:
 			$Sounds/Walking.stream_paused = true
+			if $Sprite2D.animation != "Jump":
+				$Sprite2D.play("Jump")
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
@@ -177,6 +181,7 @@ func wallHandle() -> void:
 		$Timers/CoyoteTime.start
 		 
 	if Input.is_action_just_pressed("jump"):
+		$Sprite2D.play("Jump")
 		#print("walljump")
 		if facing == directions.Left:
 			velocity = Vector2(jumpPow*2, -jumpPow/1.5)
