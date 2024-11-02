@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cyc841wfb48xn"]
+[gd_scene load_steps=28 format=3 uid="uid://cyc841wfb48xn"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/DMovement.gd" id="1_g34sx"]
 [ext_resource type="Material" uid="uid://u1fm81ih6av4" path="res://Assets/Sprites/Playercharacter/flashmaterial.tres" id="2_4x2vb"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://Assets/Scenes/Entities/PlayerCam.gd" id="4_p5o3m"]
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="4_udpii"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="5_4xfvd"]
+[ext_resource type="Script" path="res://Assets/Scenes/Entities/hurtbox.gd" id="8_bfmo6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8rp0"]
 atlas = ExtResource("3_p3gw8")
@@ -132,11 +133,11 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d2v5i"]
-radius = 55.0
-height = 160.0
+radius = 53.0
+height = 170.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xweso"]
-radius = 48.1664
+radius = 80.025
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n07sd"]
 
@@ -162,6 +163,7 @@ frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
+position = Vector2(-10, -2)
 shape = SubResource("CapsuleShape2D_d2v5i")
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -207,9 +209,10 @@ volume_db = -25.0
 parameters/looping = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
-visible = false
+script = ExtResource("8_bfmo6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-10, 0)
 shape = SubResource("CircleShape2D_xweso")
 
 [node name="Line2D" type="Line2D" parent="."]
@@ -234,3 +237,5 @@ target_position = Vector2(0, 20)
 [connection signal="timeout" from="Timers/FlashTime" to="." method="_on_flash_time_timeout"]
 [connection signal="timeout" from="Timers/WallTime" to="." method="_on_wall_time_timeout"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
+[connection signal="body_entered" from="Hurtbox" to="." method="_on_hurtbox_body_entered"]
+[connection signal="body_exited" from="Hurtbox" to="." method="_on_hurtbox_body_exited"]
