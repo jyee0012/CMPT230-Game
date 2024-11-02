@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends CharacterBody2D 
 
 enum playerState {Idle, Move, Airborne, Dash, Wallslide, Grapple, Attack}
 enum directions {Left,Right,Up,Down}
@@ -23,20 +23,28 @@ var timesDashed = 0
 @export var grapple_range = 600
 var startPos
 var sliding = false
-var hp
+var hp 
 var maxHp = 5
+var canTakeDamage:bool = true
+var inArea:bool = false
+
+
+
 @export var canAttack = false
 @export var attackRange = 500
 @export var attackDmg = 1
 
 
 func _ready() -> void:
+	
+	GameData.playerBody = self
 	state = playerState.Idle
 	facing = directions.Right
 	WalljumpUnlocked = true
 	$Sounds/Walking.play()#walking sfx is paused whenever in idle state and unpaused when walking
 	startPos = position
 	hp = maxHp
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -44,6 +52,8 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	#print("(",velocity.x, ", ", velocity.y,")")
+	
+	
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true
@@ -77,10 +87,11 @@ func _physics_process(delta: float) -> void:
 			grappleHandle()
 		playerState.Attack:
 			pass
+		
 	#print(state)
 	
 	attackHandle()
-	deathHandle()
+	takingDmg()
 	move_and_slide()
 	
 #handles character movement and state swapping for movement related states (idle, airborne, moving)
@@ -220,11 +231,7 @@ func grappleHandle() -> void:
 	#	draw_line(position,target,Color.BROWN,2)
 	else:
 		state = playerState.Idle
-		
-		
-	
-	
-	
+			
 	if is_on_wall() or Input.is_action_just_pressed("jump"):
 		state = playerState.Idle
 		if is_on_wall():
@@ -232,9 +239,11 @@ func grappleHandle() -> void:
 			velocity.y = 0
 
 func deathHandle() -> void:
-	if Input.is_action_just_pressed("debug"):
-		position = startPos
-		velocity = Vector2.ZERO
+	
+	position = startPos
+	velocity = Vector2.ZERO
+	hp = maxHp
+		
 func attackHandle() -> void:
 	if Input.is_action_just_pressed("attack") and canAttack:
 		canAttack = false
@@ -247,7 +256,7 @@ func attackHandle() -> void:
 		if hitbox.is_colliding():
 			if hitbox.get_collider(0).is_in_group("Enemies"):
 				hitbox.get_collider(0).takeDamage(5)
-				#print("did dmg")
+				
 
 func _on_cooldown_timer_timeout() -> void:
 	canAttack = true
@@ -272,5 +281,30 @@ func playerUpdateHp(n:int = 1) -> void:
 		hp = maxHp
 	if (hp <= 0):
 		deathHandle()
+
+func takeDamageCooldown(val):
+	canTakeDamage = false
+	await get_tree().create_timer(val).timeout
+	canTakeDamage = true
 func playerResetHp() -> void:
 	hp = maxHp	
+	
+	#checks whether hurtbox has been entered
+func _on_hurtbox_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Enemies"):
+		inArea = true
+
+#once hurtbox has been entered, player will continue to lose health until 
+#it is left		
+func takingDmg():
+	if inArea:
+		if canTakeDamage:			
+			hp-=1
+			if hp == 0:			
+				deathHandle()
+			print("took dmg   new hp: ",hp)
+			takeDamageCooldown(1)
+
+
+func _on_hurtbox_body_exited(body: Node2D) -> void:
+	inArea = false 

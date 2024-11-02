@@ -6,6 +6,8 @@ extends Node
 @export var WalljumpUnlocked = false
 @export var JumpsUnlocked = 1
 
+var playerBody: CharacterBody2D
+
 signal dash_collect
 signal hp_collect
 signal whip_collect

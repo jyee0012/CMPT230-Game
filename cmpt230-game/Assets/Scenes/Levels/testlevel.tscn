@@ -11,7 +11,8 @@
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/enemy.gd" id="9_6deat"]
 [ext_resource type="Texture2D" uid="uid://djf65gigdf4m7" path="res://Assets/Sprites/Enemies/MobCat.png" id="10_a261n"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qln13"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arqil"]
+size = Vector2(24.7315, 26.6419)
 
 [node name="Node2D" type="Node2D"]
 position = Vector2(1, 0)
@@ -22,7 +23,7 @@ DashesUnlocked = 2
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("1_u5jyn")]
 z_index = 1
-position = Vector2(-644, -378)
+position = Vector2(-629, -378)
 collision_layer = 3
 floor_constant_speed = true
 floor_snap_length = 9.0
@@ -88,9 +89,10 @@ patrolRange = 300
 [node name="Sprite2D" type="Sprite2D" parent="Enemy"]
 texture = ExtResource("10_a261n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+[node name="enemyCollision" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(-16.1875, 7)
 scale = Vector2(5.24129, 5.40501)
-shape = SubResource("CapsuleShape2D_qln13")
+shape = SubResource("RectangleShape2D_arqil")
 
 [connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
 [connection signal="hp_collect" from="GameData" to="Player" method="_on_game_data_hp_collect"]
