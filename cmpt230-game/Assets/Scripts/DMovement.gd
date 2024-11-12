@@ -35,6 +35,13 @@ var inArea:bool = false
 @export var attackDmg = 1
 
 
+#hp ui
+@onready var Heart1 = $Control/HBoxContainer/Panel1
+@onready var Heart2 = $Control/HBoxContainer/Panel2
+@onready var Heart3 = $Control/HBoxContainer/Panel3
+@onready var Heart4 = $Control/HBoxContainer/Panel4
+@onready var Heart5 = $Control/HBoxContainer/Panel5
+
 func _ready() -> void:
 	
 	GameData.playerBody = self
@@ -275,12 +282,19 @@ func _on_game_data_whip_collect() -> void:
 	hasGrapple = true
 	print("can attack")
 func playerUpdateHp(n:int = 1) -> void:
-	print("hp update:", hp)
 	hp += n
 	if (hp > maxHp):
 		hp = maxHp
 	if (hp <= 0):
 		deathHandle()
+	print("hp update:", hp)
+	
+	Heart1.visible = hp >= 1
+	Heart2.visible = hp >= 2
+	Heart3.visible = hp >= 3
+	Heart4.visible = hp >= 4
+	Heart5.visible = hp >= 5
+	
 
 func takeDamageCooldown(val):
 	canTakeDamage = false
@@ -299,9 +313,7 @@ func _on_hurtbox_body_entered(body: Node2D) -> void:
 func takingDmg():
 	if inArea:
 		if canTakeDamage:			
-			hp-=1
-			if hp == 0:			
-				deathHandle()
+			playerUpdateHp(-1)
 			print("took dmg   new hp: ",hp)
 			takeDamageCooldown(1)
 

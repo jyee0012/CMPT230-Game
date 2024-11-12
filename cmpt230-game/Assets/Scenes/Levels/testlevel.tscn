@@ -43,17 +43,6 @@ volume_db = -16.0
 pitch_scale = 1.5
 bus = &"dash"
 
-[node name="Control" type="Control" parent="Player"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label" type="Label" parent="Player/Control"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
 [node name="Item2" parent="." instance=ExtResource("7_tmcj8")]
 position = Vector2(5109, 118)
 
