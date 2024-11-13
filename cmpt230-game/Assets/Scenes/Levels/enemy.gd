@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 var chasing: bool= false
+var returning:bool = false
 const JUMP_VELOCITY = -400.0
 var hp = 30
 @export
@@ -25,6 +26,7 @@ var player:CharacterBody2D
 
 func _ready() -> void:
 	startPos = position
+	player = GameData.playerBody
 	
 	
 func _physics_process(delta: float) -> void:
@@ -32,16 +34,36 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	player = GameData.playerBody
 	move()
 	animationHandler()
 	move_and_slide()
 	areaChecker()
+	if returning:
+		returnToStart()
+	
 
 #checks if player is in spot radius	
 func areaChecker():
 	if position.distance_to(player.position) <= spotRadius:
 		chasing = true
+	else:
+		if chasing == true:
+			returning = true		
+		chasing = false
+func returnToStart():
+	#returns enemy back to starting position with 3 margin of error since it will likely overshoot
+	
+	print(int(position.x))
+	if position.x > startPos.x+3:
+		velocity.x = -SPEED
+	elif position.x < startPos.x-3:
+		velocity.x = SPEED	
+	else:
+		returning = false
+	
+	dir.x = abs(velocity.x) / velocity.x
+	
+	
 			
 func animationHandler():
 	var sprite = $Sprite2D
@@ -59,7 +81,7 @@ func animationHandler():
 #patrols until player is in spot radius, then chases
 func move():
 	if !dead:
-		if !chasing:
+		if !chasing and !returning:
 			patrol()
 		elif chasing and !taking_damage:
 			var dir_to_player = position.direction_to(player.position)*SPEED
@@ -82,8 +104,9 @@ func takeDamage(dmg:int) -> void:
 		dead = true
 
 func patrol() -> void:
-	var direction
+
 	if position.x > startPos.x + patrolRange or position.x < startPos.x - patrolRange:
 		facing *= -1
-		$Sprite2D.flip_h = facing == 1
+		
 	velocity.x = facing * SPEED
+	dir.x = abs(velocity.x) / velocity.x
