@@ -191,6 +191,7 @@ text = "Hello"
 
 [node name="Controls Label" type="Label" parent="Control"]
 visible = false
+layout_mode = 0
 offset_left = -1080.0
 offset_top = -600.0
 offset_right = -1040.0
