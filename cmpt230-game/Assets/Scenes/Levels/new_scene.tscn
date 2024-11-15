@@ -80,3 +80,12 @@ shape = SubResource("RectangleShape2D_5h3u7")
 [node name="Item" parent="." instance=ExtResource("11_vhcml")]
 position = Vector2(20609, -156)
 item = 0
+
+[connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
+[connection signal="hp_collect" from="GameData" to="Player" method="_on_game_data_hp_collect"]
+[connection signal="whip_collect" from="GameData" to="Player" method="_on_game_data_whip_collect"]
+[connection signal="wing_collect" from="GameData" to="Player" method="_on_game_data_wing_collect"]
+[connection signal="boot_collected" from="Item" to="GameData" method="_on_item_boot_collected"]
+[connection signal="health_collected" from="Item" to="GameData" method="_on_item_health_collected"]
+[connection signal="whip_collected" from="Item" to="GameData" method="_on_item_whip_collected"]
+[connection signal="wing_collected" from="Item" to="GameData" method="_on_item_wing_collected"]
