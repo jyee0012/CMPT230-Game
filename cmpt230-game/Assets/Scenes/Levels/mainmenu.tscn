@@ -1,66 +1,45 @@
-[gd_scene load_steps=2 format=3 uid="uid://b5tgwo4wxqrup"]
+[gd_scene load_steps=3 format=3 uid="uid://b5tgwo4wxqrup"]
 
-[ext_resource type="Texture2D" uid="uid://bpxawmpppa8do" path="res://Assets/Sprites/MenuBackground.png" id="1_cjmfn"]
+[ext_resource type="Script" path="res://Assets/Scenes/Levels/mainmenu.gd" id="1_kmmtg"]
+[ext_resource type="Texture2D" uid="uid://c6qapmlleycqv" path="res://Assets/Sprites/menu.png" id="2_iy5l7"]
 
-[node name="Control" type="Control"]
+[node name="menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_kmmtg")
 
-[node name="Menu" type="NinePatchRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -175.0
-offset_top = -200.0
-offset_right = 175.0
-offset_bottom = 200.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_cjmfn")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
+texture = ExtResource("2_iy5l7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu"]
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.5
-offset_top = -33.0
-offset_right = 20.5
-offset_bottom = 33.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.01125, 0.950552)
-theme_override_constants/separation = 4
+scale = Vector2(13.0727, 10.5109)
 
-[node name="MenuButton" type="MenuButton" parent="Menu/VBoxContainer"]
-layout_mode = 2
-text = "Play"
+[node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
+layout_mode = 1
+offset_right = 41.0
+offset_bottom = 66.0
+scale = Vector2(0.613879, 0.468205)
 
-[node name="MenuButton2" type="MenuButton" parent="Menu/VBoxContainer"]
+[node name="play" type="Button" parent="NinePatchRect/VBoxContainer"]
+z_index = 1
 layout_mode = 2
-text = "Play"
+text = "play"
 
-[node name="MenuButton3" type="MenuButton" parent="Menu/VBoxContainer"]
+[node name="quit" type="Button" parent="NinePatchRect/VBoxContainer"]
+z_index = 1
 layout_mode = 2
-text = "Play"
+text = "quit"
 
-[node name="MenuButton4" type="MenuButton" parent="Menu/VBoxContainer"]
-layout_mode = 2
-text = "Play"
-
-[node name="MenuButton5" type="MenuButton" parent="Menu/VBoxContainer"]
-layout_mode = 2
-text = "Play"
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="NinePatchRect/VBoxContainer/quit" to="." method="_on_quit_pressed"]
