@@ -5,7 +5,7 @@ const SPEED = 300.0
 var chasing: bool= false
 var returning:bool = false
 const JUMP_VELOCITY = -400.0
-var hp = 30
+@export var hp = 30
 @export
 var patrolRange = 500
 var startPos
@@ -53,7 +53,7 @@ func areaChecker():
 func returnToStart():
 	#returns enemy back to starting position with 3 margin of error since it will likely overshoot
 	
-	print(int(position.x))
+
 	if position.x > startPos.x+3:
 		velocity.x = -SPEED
 	elif position.x < startPos.x-3:

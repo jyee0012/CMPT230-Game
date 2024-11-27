@@ -32,7 +32,7 @@ var inArea:bool = false
 
 @export var canAttack = false
 @export var attackRange = 500
-@export var attackDmg = 5
+@export var attackDmg = 15
 
 
 #hp ui
