@@ -49,6 +49,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="Label" type="Label" parent="Player/Control2"]
+layout_mode = 0
+offset_left = -1551.0
+offset_top = -713.0
+offset_right = -1364.0
+offset_bottom = -612.0
+scale = Vector2(2.67391, 2.5732)
+text = "Arrow keys = Movement
+Shift = Dash (Requires boots)
+X = Attack (Requires whip)
+A = Grapple (Requires whip)
+Grapple will always aim 
+above where the player is facing
+(Currently no indication for grapple)
+"
+
 [node name="Item2" parent="." instance=ExtResource("7_tmcj8")]
 position = Vector2(5109, 118)
 

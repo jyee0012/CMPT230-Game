@@ -211,7 +211,7 @@ RB = Dash
 X = Grapple"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
-layout_mode = 0
+layout_mode = 1
 offset_left = -1582.0
 offset_top = -856.0
 offset_right = -862.0
