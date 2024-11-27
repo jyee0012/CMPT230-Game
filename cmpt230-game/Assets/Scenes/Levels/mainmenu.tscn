@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b5tgwo4wxqrup"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/mainmenu.gd" id="1_kmmtg"]
-[ext_resource type="Texture2D" uid="uid://c6qapmlleycqv" path="res://Assets/Sprites/menu.png" id="2_iy5l7"]
+[ext_resource type="Texture2D" uid="uid://55o1c3bq128" path="res://Assets/Sprites/menu2.png" id="2_52m8p"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -14,12 +14,19 @@ script = ExtResource("1_kmmtg")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -223.0
+offset_top = -279.5
+offset_right = 223.0
+offset_bottom = 279.5
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_iy5l7")
+texture = ExtResource("2_52m8p")
+stretch_mode = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1

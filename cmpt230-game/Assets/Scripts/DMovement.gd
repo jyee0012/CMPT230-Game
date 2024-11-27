@@ -32,7 +32,7 @@ var inArea:bool = false
 
 @export var canAttack = false
 @export var attackRange = 500
-@export var attackDmg = 1
+@export var attackDmg = 5
 
 
 #hp ui
@@ -262,7 +262,7 @@ func attackHandle() -> void:
 			hitbox = $ShapeCastLeft
 		if hitbox.is_colliding():
 			if hitbox.get_collider(0).is_in_group("Enemies"):
-				hitbox.get_collider(0).takeDamage(5)
+				hitbox.get_collider(0).takeDamage(attackDmg)
 				
 
 func _on_cooldown_timer_timeout() -> void:
