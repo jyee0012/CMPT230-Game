@@ -57,6 +57,7 @@ offset_right = -1364.0
 offset_bottom = -612.0
 scale = Vector2(2.67391, 2.5732)
 text = "Arrow keys = Movement
+Spacebar = Jump
 Shift = Dash (Requires boots)
 X = Attack (Requires whip)
 A = Grapple (Requires whip)
