@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://c4vq2n48pp2r2" path="res://Assets/Scenes/Entities/game_data.tscn" id="4_imivj"]
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="5_8a4lk"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="6_cxaxh"]
+[ext_resource type="AudioStream" uid="uid://d0xn5ft2ovqyy" path="res://Assets/audio/level/labrat-demo.wav" id="7_8tyx0"]
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="7_ahi3o"]
-[ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="8_igyyj"]
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="8_mnuo6"]
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/enemy.gd" id="9_3fqmh"]
 [ext_resource type="Texture2D" uid="uid://djf65gigdf4m7" path="res://Assets/Sprites/Enemies/MobCat.png" id="10_yqi47"]
@@ -58,7 +58,7 @@ grow_vertical = 2
 [node name="Environment" type="Node" parent="."]
 
 [node name="background" type="AudioStreamPlayer" parent="Environment"]
-stream = ExtResource("8_igyyj")
+stream = ExtResource("7_8tyx0")
 volume_db = -16.0
 autoplay = true
 bus = &"background"

@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5tgwo4wxqrup"]
+[gd_scene load_steps=6 format=3 uid="uid://b5tgwo4wxqrup"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/mainmenu.gd" id="1_kmmtg"]
 [ext_resource type="Texture2D" uid="uid://55o1c3bq128" path="res://Assets/Sprites/menu2.png" id="2_52m8p"]
+[ext_resource type="Texture2D" uid="uid://dh4ea6cin7230" path="res://Assets/Sprites/menu icons/play.png" id="3_hd4u8"]
+[ext_resource type="Texture2D" uid="uid://y8ymnql6nvxk" path="res://Assets/Sprites/menu icons/quit.png" id="4_qxsjw"]
+[ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="5_dae3s"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -14,39 +17,40 @@ script = ExtResource("1_kmmtg")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -223.0
-offset_top = -279.5
-offset_right = 223.0
-offset_bottom = 279.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_52m8p")
-stretch_mode = 2
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
+offset_top = 50.0
+offset_bottom = 50.0
 scale = Vector2(13.0727, 10.5109)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="NinePatchRect"]
 layout_mode = 1
-offset_right = 41.0
-offset_bottom = 66.0
-scale = Vector2(0.613879, 0.468205)
+offset_top = 0.190279
+offset_right = 318.0
+offset_bottom = 254.19
+scale = Vector2(0.0534985, 0.0597581)
 
 [node name="play" type="Button" parent="NinePatchRect/VBoxContainer"]
 z_index = 1
 layout_mode = 2
-text = "play"
+icon = ExtResource("3_hd4u8")
+flat = true
 
 [node name="quit" type="Button" parent="NinePatchRect/VBoxContainer"]
 z_index = 1
 layout_mode = 2
-text = "quit"
+icon = ExtResource("4_qxsjw")
+flat = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_dae3s")
 
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/quit" to="." method="_on_quit_pressed"]

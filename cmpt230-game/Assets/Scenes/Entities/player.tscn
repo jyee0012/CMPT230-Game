@@ -298,16 +298,14 @@ shape = SubResource("CircleShape2D_xweso")
 closed = true
 
 [node name="ShapeCastLeft" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(-149, -20)
-scale = Vector2(18.4212, 2.92064)
+position = Vector2(-325, -20)
+scale = Vector2(36, 2.9)
 shape = SubResource("RectangleShape2D_n07sd")
 target_position = Vector2(0, 20)
 
 [node name="ShapeCastRight" type="ShapeCast2D" parent="."]
-visible = false
-position = Vector2(125, -20)
-scale = Vector2(18.4212, 2.92064)
+position = Vector2(253, -16)
+scale = Vector2(32.37, 2.9)
 shape = SubResource("RectangleShape2D_n07sd")
 target_position = Vector2(0, 20)
 
