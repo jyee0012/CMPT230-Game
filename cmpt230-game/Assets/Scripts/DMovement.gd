@@ -51,6 +51,7 @@ func _ready() -> void:
 	$Sounds/Walking.play()#walking sfx is paused whenever in idle state and unpaused when walking
 	startPos = position
 	hp = maxHp
+	$Control/Aim.visible = false
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -224,23 +225,38 @@ func changeState() -> void:
 func grappleHandle() -> void:
 	var face = facing
 	if facing == 0: face = -1
-	var space_rid = get_world_2d().space
-	var space_state = PhysicsServer2D.space_get_direct_state(space_rid)
-	var target = Vector2(position.x + face*grapple_range, position.y -grapple_range)
-	var query = PhysicsRayQueryParameters2D.create(position,target)
-	var result = space_state.intersect_ray(query)
+	var result = null
+	var target = Vector2.ZERO
+	if result == null:
+		var space_rid = get_world_2d().space
+		var space_state = PhysicsServer2D.space_get_direct_state(space_rid)
+		target = Vector2(global_position.x + face*grapple_range, global_position.y -grapple_range)
+		var query = PhysicsRayQueryParameters2D.create(position,target)
+		result = space_state.intersect_ray(query)
 	
 	if result:
 	#	print("hit at point ", result.position)
+		var tempTarg = Vector2(2447.365, -743.0287)
 		velocity += Vector2(face, -1) * grappleSpeed
-		$Line2D.add_point(position)
+		#var tempS = position.+":"+String(global_position)
+		#print("%s:%s",position, global_position)
+		$Line2D.add_point(global_position)
 		$Line2D.add_point(target)
+		var aimOffset = $Control/Aim.size/-2
+		
+		$Control/Aim.set_position((result.position-position)+aimOffset)
+		$Control/Aim.visible = true
+		print(target)
+		#print(target)
 	#	draw_line(position,target,Color.BROWN,2)
 	else:
+		$Line2D.clear_points()
 		state = playerState.Idle
+		$Control/Aim.visible = false
 			
 	if is_on_wall() or Input.is_action_just_pressed("jump"):
 		state = playerState.Idle
+		$Control/Aim.visible = false
 		if is_on_wall():
 			#print_debug("on wall")
 			velocity.y = 0

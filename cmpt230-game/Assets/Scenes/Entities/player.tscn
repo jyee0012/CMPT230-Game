@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cyc841wfb48xn"]
+[gd_scene load_steps=30 format=3 uid="uid://cyc841wfb48xn"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/DMovement.gd" id="1_g34sx"]
 [ext_resource type="Material" uid="uid://u1fm81ih6av4" path="res://Assets/Sprites/Playercharacter/flashmaterial.tres" id="2_4x2vb"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="3_ui3ni"]
 [ext_resource type="Script" path="res://Assets/Scenes/Entities/PlayerCam.gd" id="4_p5o3m"]
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="4_udpii"]
+[ext_resource type="Texture2D" uid="uid://bcorbyf458jws" path="res://Assets/Sprites/aim.png" id="5_4ogn4"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="5_4xfvd"]
 [ext_resource type="Texture2D" uid="uid://buk52npxrlvxl" path="res://Assets/Sprites/Items/cheeseheart.png" id="5_7ydxn"]
 [ext_resource type="Script" path="res://Assets/Scenes/Entities/hurtbox.gd" id="8_bfmo6"]
@@ -209,6 +210,12 @@ Left Analog = Movement
 A = Jump
 RB = Dash
 X = Grapple"
+
+[node name="Aim" type="TextureRect" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_4ogn4")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control"]
 layout_mode = 1
