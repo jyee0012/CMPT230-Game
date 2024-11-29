@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5tgwo4wxqrup"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/mainmenu.gd" id="1_kmmtg"]
-[ext_resource type="Texture2D" uid="uid://55o1c3bq128" path="res://Assets/Sprites/menu2.png" id="2_52m8p"]
+[ext_resource type="Texture2D" uid="uid://bdof82f1x75i1" path="res://Assets/Sprites/Screenshot 2024-11-28 215202.png" id="2_enr6o"]
 [ext_resource type="Texture2D" uid="uid://dh4ea6cin7230" path="res://Assets/Sprites/menu icons/play.png" id="3_hd4u8"]
+[ext_resource type="Texture2D" uid="uid://55eqldkksnhj" path="res://Assets/Sprites/cooltext470855373178234.png" id="3_v4jce"]
 [ext_resource type="Texture2D" uid="uid://y8ymnql6nvxk" path="res://Assets/Sprites/menu icons/quit.png" id="4_qxsjw"]
-[ext_resource type="AudioStream" uid="uid://0oibpuq10ucc" path="res://Assets/audio/level/ancient forest demo.wav" id="5_dae3s"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -22,7 +22,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_52m8p")
+texture = ExtResource("2_enr6o")
+
+[node name="TextureRect" type="TextureRect" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -453.0
+offset_top = 28.0
+offset_right = 62.0
+offset_bottom = 118.0
+grow_horizontal = 0
+scale = Vector2(0.88, 1)
+texture = ExtResource("3_v4jce")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 layout_mode = 1
@@ -48,10 +61,6 @@ z_index = 1
 layout_mode = 2
 icon = ExtResource("4_qxsjw")
 flat = true
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_dae3s")
-autoplay = true
 
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="NinePatchRect/VBoxContainer/quit" to="." method="_on_quit_pressed"]
