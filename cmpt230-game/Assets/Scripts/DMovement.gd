@@ -65,22 +65,29 @@ func _physics_process(delta: float) -> void:
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true
-			$Sprite2D.play("Idle")
+			if $Timers/CooldownTimer.is_stopped():
+				$Sprite2D.play("Idle")
+			attackHandle()
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
 			dashHandle()
 		playerState.Move:
 			$Sounds/Walking.stream_paused = false
-			$Sprite2D.play("Run")
+			if $Timers/CooldownTimer.is_stopped():
+				if $Sprite2D.animation != "Run":
+					$Sprite2D.play("Run")
+			attackHandle()
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
 			dashHandle()
 		playerState.Airborne:
 			$Sounds/Walking.stream_paused = true
-			if $Sprite2D.animation != "Jump":
-				$Sprite2D.play("Jump")
+			if $Timers/CooldownTimer.is_stopped():
+				if $Sprite2D.animation != "Jump":
+					$Sprite2D.play("Jump")
+			attackHandle()
 			jumpHandle(delta)
 			movement(delta)
 			changeState()
@@ -98,7 +105,7 @@ func _physics_process(delta: float) -> void:
 		
 	#print(state)
 	
-	attackHandle()
+	
 	takingDmg()
 	move_and_slide()
 	
@@ -240,12 +247,13 @@ func grappleHandle() -> void:
 		velocity += Vector2(face, -1) * grappleSpeed
 		#var tempS = position.+":"+String(global_position)
 		#print("%s:%s",position, global_position)
-		$Line2D.add_point(global_position)
-		$Line2D.add_point(target)
+		
 		var aimOffset = $Control/Aim.size/-2
 		
 		$Control/Aim.set_position((result.position-position)+aimOffset)
 		$Control/Aim.visible = true
+		#$Line2D.add_point($Control/Aim.position)
+		#$Line2D.add_point(position)
 		print(target)
 		#print(target)
 	#	draw_line(position,target,Color.BROWN,2)
@@ -268,20 +276,32 @@ func deathHandle() -> void:
 	hp = maxHp
 		
 func attackHandle() -> void:
+	
+	
 	if Input.is_action_just_pressed("attack") and canAttack:
+		$Sprite2D.play("Attack")
 		canAttack = false
 		$Timers/CooldownTimer.start()
+	
+	if  $Sprite2D.animation == "Attack" and $Sprite2D.frame == 1:
 		var hitbox
 		if facing == directions.Right:
+			$whipr.show()
 			hitbox = $ShapeCastRight
-		elif facing == directions.Left:
+		else:
+			$whipl.show()
 			hitbox = $ShapeCastLeft
-		if hitbox.is_colliding():
-			if hitbox.get_collider(0).is_in_group("Enemies"):
-				hitbox.get_collider(0).takeDamage(attackDmg)
+		
+			
+		if hitbox and hitbox.is_colliding():
+			var hit = hitbox.get_collider(0)
+			if hit and hit.is_in_group("Enemies"):
+				hit.takeDamage(attackDmg)
 				
 
 func _on_cooldown_timer_timeout() -> void:
+	$whipr.hide()
+	$whipl.hide()
 	canAttack = true
 func _on_game_data_dash_collect() -> void:
 	maxDashes += 1
