@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://cjgtyxwmty8my"]
+[gd_scene load_steps=10 format=4 uid="uid://cjgtyxwmty8my"]
 
 [ext_resource type="PackedScene" uid="uid://c4vq2n48pp2r2" path="res://Assets/Scenes/Entities/game_data.tscn" id="1_c856b"]
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="1_u5jyn"]
@@ -8,11 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_jl12i"]
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="7_tmcj8"]
 [ext_resource type="AudioStream" uid="uid://d0xn5ft2ovqyy" path="res://Assets/audio/level/labrat-demo.wav" id="8_8dcc0"]
-[ext_resource type="Script" path="res://Assets/Scenes/Levels/enemy.gd" id="9_6deat"]
-[ext_resource type="Texture2D" uid="uid://djf65gigdf4m7" path="res://Assets/Sprites/Enemies/MobCat.png" id="10_a261n"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_arqil"]
-size = Vector2(24.7315, 26.6419)
+[ext_resource type="PackedScene" uid="uid://muqvvimcni3r" path="res://Assets/Scenes/Entities/enemy.tscn" id="9_0cchb"]
 
 [node name="Node2D2" type="Node2D"]
 position = Vector2(1, 0)
@@ -94,30 +90,12 @@ item = 2
 [node name="Item4" parent="." instance=ExtResource("7_tmcj8")]
 position = Vector2(349, -357)
 
-[node name="Enemy" type="CharacterBody2D" parent="." groups=["Enemies"]]
-script = ExtResource("9_6deat")
-patrolRange = 300
+[node name="Enemies" type="Node" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Enemy"]
-texture = ExtResource("10_a261n")
+[node name="Enemy3" parent="Enemies" instance=ExtResource("9_0cchb")]
 
-[node name="enemyCollision" type="CollisionShape2D" parent="Enemy"]
-position = Vector2(-16.1875, 7)
-scale = Vector2(5.24129, 5.40501)
-shape = SubResource("RectangleShape2D_arqil")
-
-[node name="Enemy2" type="CharacterBody2D" parent="." groups=["Enemies"]]
-position = Vector2(6955, 60)
-script = ExtResource("9_6deat")
-patrolRange = 700
-
-[node name="Sprite2D" type="Sprite2D" parent="Enemy2"]
-texture = ExtResource("10_a261n")
-
-[node name="enemyCollision" type="CollisionShape2D" parent="Enemy2"]
-position = Vector2(-16.1875, 7)
-scale = Vector2(5.24129, 5.40501)
-shape = SubResource("RectangleShape2D_arqil")
+[node name="Enemy4" parent="Enemies" instance=ExtResource("9_0cchb")]
+position = Vector2(6957, 58)
 
 [connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
 [connection signal="hp_collect" from="GameData" to="Player" method="_on_game_data_hp_collect"]

@@ -21,6 +21,7 @@ var knockback = -2500
 var is_patrolling:bool=true
 
 var player:CharacterBody2D
+@onready var sprite = $AnimatedSprite2D
 
 @export var spotRadius = 500
 
@@ -66,7 +67,17 @@ func returnToStart():
 	
 			
 func animationHandler():
-	var sprite = $Sprite2D
+	
+	if position.distance_to(player.position) <= 150:
+		if sprite.animation != "Attack":
+			print("attacking")
+			sprite.play("Attack")
+	elif sprite.animation != "Walk":
+		sprite.play("Walk")
+
+	
+		
+	
 	if !dead and !taking_damage and !is_attacking:
 		if dir.x == -1:
 			sprite.flip_h = false
@@ -95,8 +106,10 @@ func move():
 		velocity.x = 0
 		
 func takeDamage(dmg:int) -> void:
-	hp -= dmg
-	taking_damage = true
+	if $HitCooldown.is_stopped():
+		hp -= dmg
+		taking_damage = true
+		$HitCooldown.start()
 	
 	print("took dmg, hp:", hp)
 	if hp <= 0:
@@ -110,3 +123,7 @@ func patrol() -> void:
 		
 	velocity.x = facing * SPEED
 	dir.x = abs(velocity.x) / velocity.x
+
+
+func _on_hit_cooldown_timeout() -> void:
+	pass # Replace with function body.

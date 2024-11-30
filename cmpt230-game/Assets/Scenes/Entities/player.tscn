@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://cyc841wfb48xn"]
+[gd_scene load_steps=35 format=3 uid="uid://cyc841wfb48xn"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/DMovement.gd" id="1_g34sx"]
 [ext_resource type="Material" uid="uid://u1fm81ih6av4" path="res://Assets/Sprites/Playercharacter/flashmaterial.tres" id="2_4x2vb"]
+[ext_resource type="Texture2D" uid="uid://cmokph3in20ng" path="res://Assets/Sprites/Playercharacter/MousepantsAttack.png" id="3_3twr5"]
 [ext_resource type="Texture2D" uid="uid://b4temtbwnd540" path="res://Assets/Sprites/Playercharacter/MousepantsAnimations.png" id="3_p3gw8"]
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="3_ui3ni"]
 [ext_resource type="Script" path="res://Assets/Scenes/Entities/PlayerCam.gd" id="4_p5o3m"]
@@ -9,7 +10,17 @@
 [ext_resource type="Texture2D" uid="uid://bcorbyf458jws" path="res://Assets/Sprites/aim.png" id="5_4ogn4"]
 [ext_resource type="AudioStream" uid="uid://xy5m6egybai2" path="res://Assets/audio/sound effects/walking.mp3" id="5_4xfvd"]
 [ext_resource type="Texture2D" uid="uid://buk52npxrlvxl" path="res://Assets/Sprites/Items/cheeseheart.png" id="5_7ydxn"]
+[ext_resource type="Texture2D" uid="uid://b3i7nvfwo2was" path="res://Assets/Sprites/Playercharacter/Whip1.png" id="5_kejiw"]
+[ext_resource type="Texture2D" uid="uid://b5jg6e0u0cj2n" path="res://Assets/Sprites/Playercharacter/Whip2.png" id="6_be7vi"]
 [ext_resource type="Script" path="res://Assets/Scenes/Entities/hurtbox.gd" id="8_bfmo6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kdcsb"]
+atlas = ExtResource("3_3twr5")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3q3y3"]
+atlas = ExtResource("3_3twr5")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m8rp0"]
 atlas = ExtResource("3_p3gw8")
@@ -73,6 +84,17 @@ region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5btmd"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kdcsb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3q3y3")
+}],
+"loop": false,
+"name": &"Attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 20.0,
 "texture": SubResource("AtlasTexture_m8rp0")
@@ -142,6 +164,7 @@ height = 170.0
 radius = 80.025
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n07sd"]
+size = Vector2(17, 20)
 
 [node name="Player" type="CharacterBody2D"]
 safe_margin = 0.2
@@ -159,9 +182,34 @@ material = ExtResource("2_4x2vb")
 use_parent_material = true
 scale = Vector2(10, 10)
 sprite_frames = SubResource("SpriteFrames_5btmd")
-animation = &"Jump"
-frame = 2
-frame_progress = 1.0
+animation = &"Attack"
+frame = 1
+
+[node name="whipl" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(-160, 0)
+texture = ExtResource("5_kejiw")
+
+[node name="whipl2" type="Sprite2D" parent="whipl"]
+position = Vector2(-160, 0)
+texture = ExtResource("6_be7vi")
+
+[node name="whipl3" type="Sprite2D" parent="whipl"]
+position = Vector2(-320, 0)
+texture = ExtResource("6_be7vi")
+
+[node name="whipr" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(160, 0)
+texture = ExtResource("5_kejiw")
+
+[node name="whipr2" type="Sprite2D" parent="whipr"]
+position = Vector2(160, 0)
+texture = ExtResource("6_be7vi")
+
+[node name="whipr3" type="Sprite2D" parent="whipr"]
+position = Vector2(320, 0)
+texture = ExtResource("6_be7vi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -278,6 +326,8 @@ one_shot = true
 
 [node name="CooldownTimer" type="Timer" parent="Timers"]
 process_callback = 0
+wait_time = 0.3
+one_shot = true
 
 [node name="Sounds" type="Node" parent="."]
 
@@ -295,6 +345,7 @@ volume_db = -25.0
 parameters/looping = true
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 script = ExtResource("8_bfmo6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
@@ -305,13 +356,13 @@ shape = SubResource("CircleShape2D_xweso")
 closed = true
 
 [node name="ShapeCastLeft" type="ShapeCast2D" parent="."]
-position = Vector2(-325, -20)
+position = Vector2(-311, -23)
 scale = Vector2(36, 2.9)
 shape = SubResource("RectangleShape2D_n07sd")
 target_position = Vector2(0, 20)
 
 [node name="ShapeCastRight" type="ShapeCast2D" parent="."]
-position = Vector2(253, -16)
+position = Vector2(285, -22)
 scale = Vector2(32.37, 2.9)
 shape = SubResource("RectangleShape2D_n07sd")
 target_position = Vector2(0, 20)

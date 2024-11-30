@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://muqvvimcni3r"]
+
+[ext_resource type="Script" path="res://Assets/Scenes/Levels/enemy.gd" id="1_5luyf"]
+[ext_resource type="Texture2D" uid="uid://ji2njgsi2d3u" path="res://Assets/Sprites/Enemies/Mob Cat.png" id="3_y333n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3g2kf"]
+size = Vector2(24.7315, 26.6419)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qhbnm"]
+atlas = ExtResource("3_y333n")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_680p0"]
+atlas = ExtResource("3_y333n")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n7cs"]
+atlas = ExtResource("3_y333n")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g44v2"]
+atlas = ExtResource("3_y333n")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jf36"]
+atlas = ExtResource("3_y333n")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7iqv"]
+atlas = ExtResource("3_y333n")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rb88c"]
+atlas = ExtResource("3_y333n")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ei33u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qhbnm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_680p0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3n7cs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g44v2")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3jf36")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7iqv")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rb88c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D" groups=["Enemies"]]
+script = ExtResource("1_5luyf")
+patrolRange = 300
+
+[node name="enemyCollision" type="CollisionShape2D" parent="."]
+position = Vector2(-16.1875, 7)
+scale = Vector2(5.24129, 5.40501)
+shape = SubResource("RectangleShape2D_3g2kf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-21, -1)
+scale = Vector2(10, 10)
+sprite_frames = SubResource("SpriteFrames_ei33u")
+frame_progress = 0.642235
+
+[node name="HitCooldown" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[connection signal="timeout" from="HitCooldown" to="." method="_on_hit_cooldown_timeout"]
