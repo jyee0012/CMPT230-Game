@@ -60,8 +60,7 @@ func _process(_delta: float) -> void:
 	
 func _physics_process(delta: float) -> void:
 	#print("(",velocity.x, ", ", velocity.y,")")
-	
-	
+		
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true

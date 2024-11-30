@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://4ct0oxehvlky"]
+[gd_scene load_steps=13 format=4 uid="uid://4ct0oxehvlky"]
 
+[ext_resource type="Script" path="res://Assets/Scenes/Levels/main_level.gd" id="1_fpi11"]
 [ext_resource type="Texture2D" uid="uid://beygij8ad3uhm" path="res://Assets/Sprites/Enemies/smallspacebun.png" id="1_ph14l"]
 [ext_resource type="PackedScene" uid="uid://c4vq2n48pp2r2" path="res://Assets/Scenes/Entities/game_data.tscn" id="2_1jecg"]
 [ext_resource type="PackedScene" uid="uid://cyc841wfb48xn" path="res://Assets/Scenes/Entities/player.tscn" id="3_bwb0r"]
@@ -7,12 +8,15 @@
 [ext_resource type="AudioStream" uid="uid://dbhe7jbgulshq" path="res://Assets/audio/sound effects/death.mp3" id="5_vc7d7"]
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="6_vq82t"]
 [ext_resource type="AudioStream" uid="uid://d0xn5ft2ovqyy" path="res://Assets/audio/level/labrat-demo.wav" id="7_rhh8p"]
+[ext_resource type="PackedScene" uid="uid://iya2yt76odmm" path="res://Assets/Scenes/Levels/pause.tscn" id="7_s777k"]
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="8_ks0o5"]
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="9_54a0d"]
 [ext_resource type="PackedScene" uid="uid://muqvvimcni3r" path="res://Assets/Scenes/Entities/enemy.tscn" id="10_stuph"]
 
 [node name="Node2D" type="Node2D"]
+z_index = 1
 position = Vector2(355, 164)
+script = ExtResource("1_fpi11")
 metadata/_edit_vertical_guides_ = [17769.0]
 
 [node name="Smallspacebun" type="Sprite2D" parent="."]
@@ -22,7 +26,6 @@ texture = ExtResource("1_ph14l")
 [node name="GameData" parent="." instance=ExtResource("2_1jecg")]
 
 [node name="Player" parent="." groups=["Player"] instance=ExtResource("3_bwb0r")]
-z_index = 1
 position = Vector2(3769, -257)
 collision_layer = 3
 floor_constant_speed = true
@@ -51,6 +54,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="pause" parent="Player" instance=ExtResource("7_s777k")]
+visible = false
+z_index = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -388.0
+offset_top = -520.0
+offset_right = -388.0
+offset_bottom = -520.0
+scale = Vector2(10, 10)
 
 [node name="Environment" type="Node" parent="."]
 
