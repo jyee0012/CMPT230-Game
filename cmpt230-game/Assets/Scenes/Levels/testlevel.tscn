@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://bqy0hd2mf56rn" path="res://Assets/audio/sound effects/dash.mp3" id="4_jl12i"]
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="7_tmcj8"]
 [ext_resource type="AudioStream" uid="uid://d0xn5ft2ovqyy" path="res://Assets/audio/level/labrat-demo.wav" id="8_8dcc0"]
-[ext_resource type="PackedScene" uid="uid://muqvvimcni3r" path="res://Assets/Scenes/Entities/enemy.tscn" id="9_0cchb"]
+[ext_resource type="PackedScene" path="res://Assets/Scenes/Entities/enemy.tscn" id="9_0cchb"]
 
 [node name="Node2D2" type="Node2D"]
 position = Vector2(1, 0)

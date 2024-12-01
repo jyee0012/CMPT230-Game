@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://iya2yt76odmm"]
+[gd_scene load_steps=5 format=3 uid="uid://dx1bvtiuor7m6"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/pause.gd" id="1_r4mp0"]
+[ext_resource type="Texture2D" uid="uid://cx0reyamtgjh3" path="res://Assets/ui/resume.png" id="2_e2jjf"]
+[ext_resource type="Texture2D" uid="uid://bjevscjwb3wg3" path="res://Assets/ui/retry.png" id="3_i384r"]
+[ext_resource type="Texture2D" uid="uid://c4f0jv0qanoy8" path="res://Assets/ui/quit.png" id="4_kgyrj"]
 
 [node name="pause" type="Control"]
 layout_mode = 3
@@ -12,24 +15,37 @@ grow_vertical = 2
 script = ExtResource("1_r4mp0")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -159.0
+offset_top = -191.5
+offset_right = 159.0
+offset_bottom = 191.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
 [node name="resume" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "resume"
+icon = ExtResource("2_e2jjf")
+flat = true
 
 [node name="retry" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "retry"
+icon = ExtResource("3_i384r")
+flat = true
 
 [node name="quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "quit"
+icon = ExtResource("4_kgyrj")
+flat = true
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/retry" to="." method="_on_retry_pressed"]

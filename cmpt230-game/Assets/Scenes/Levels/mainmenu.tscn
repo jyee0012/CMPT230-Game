@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b5tgwo4wxqrup"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/mainmenu.gd" id="1_kmmtg"]
-[ext_resource type="Texture2D" uid="uid://bdof82f1x75i1" path="res://Assets/Sprites/Screenshot 2024-11-28 215202.png" id="2_enr6o"]
+[ext_resource type="Texture2D" uid="uid://bdof82f1x75i1" path="res://Assets/ui/Screenshot 2024-11-28 215202.png" id="2_enr6o"]
 [ext_resource type="Texture2D" uid="uid://dh4ea6cin7230" path="res://Assets/Sprites/menu icons/play.png" id="3_hd4u8"]
-[ext_resource type="Texture2D" uid="uid://55eqldkksnhj" path="res://Assets/Sprites/cooltext470855373178234.png" id="3_v4jce"]
+[ext_resource type="Texture2D" uid="uid://55eqldkksnhj" path="res://Assets/ui/cooltext470855373178234.png" id="3_v4jce"]
 [ext_resource type="Texture2D" uid="uid://y8ymnql6nvxk" path="res://Assets/Sprites/menu icons/quit.png" id="4_qxsjw"]
 
 [node name="menu" type="Control"]
