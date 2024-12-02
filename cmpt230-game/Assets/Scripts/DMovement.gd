@@ -58,9 +58,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
-func _physics_process(delta: float) -> void:
-	#print("(",velocity.x, ", ", velocity.y,")")
-		
+func _physics_process(delta: float) -> void:	
 	match state:
 		playerState.Idle:
 			$Sounds/Walking.stream_paused = true
@@ -101,9 +99,6 @@ func _physics_process(delta: float) -> void:
 			grappleHandle()
 		playerState.Attack:
 			pass
-		
-	#print(state)
-	
 	
 	takingDmg()
 	move_and_slide()
@@ -112,8 +107,6 @@ func _physics_process(delta: float) -> void:
 func movement(delta: float) -> void:
 	var direction = Input.get_axis("left","right")
 	velocity.x = move_toward(velocity.x, speed*direction, accel)
-	
-	
 	
 	if direction:
 		if velocity.x >= 0:
@@ -132,9 +125,6 @@ func jumpHandle(delta: float) -> void:
 		velocity += get_gravity() * delta * gravMult
 	else:
 		velocity += get_gravity() * delta * gravMult * fastFallMultiplier
-		
-	#print(coyote)
-	
 	if is_on_floor():
 		coyote = true
 		sliding = false
@@ -148,7 +138,6 @@ func jumpHandle(delta: float) -> void:
 		timesJumped += 1
 		coyote = false
 		velocity.y = -jumpPow
-		#print(velocity.y)
 	if not Input.is_action_pressed("jump") and velocity.y < -(jumpPow/2.0):
 		velocity.y = -(jumpPow/2.0)
 
@@ -160,7 +149,6 @@ func doubleJump() -> bool:
 
 func _on_coyote_time_timeout() -> void:
 	coyote = false
-	#print("timeout")
 
 func dashHandle() -> void:
 	if Input.is_action_just_pressed("dash") and timesDashed < maxDashes:
@@ -190,11 +178,9 @@ func _on_flash_time_timeout() -> void:
 	$Sprite2D.use_parent_material = true
 
 func wallHandle() -> void:
-	#print(velocity)
 	if $Timers/WallTime.is_stopped() and not sliding:
 		$Timers/WallTime.start() 
 		
-	
 	if velocity.x == 0:
 		if sliding:
 			velocity.y = 20
@@ -241,11 +227,8 @@ func grappleHandle() -> void:
 		result = space_state.intersect_ray(query)
 	
 	if result:
-	#	print("hit at point ", result.position)
 		var tempTarg = Vector2(2447.365, -743.0287)
 		velocity += Vector2(face, -1) * grappleSpeed
-		#var tempS = position.+":"+String(global_position)
-		#print("%s:%s",position, global_position)
 		
 		var aimOffset = $Control/Aim.size/-2
 		
@@ -253,8 +236,6 @@ func grappleHandle() -> void:
 		$Control/Aim.visible = true
 		#$Line2D.add_point($Control/Aim.position)
 		#$Line2D.add_point(position)
-		print(target)
-		#print(target)
 	#	draw_line(position,target,Color.BROWN,2)
 	else:
 		$Line2D.clear_points()
@@ -265,7 +246,6 @@ func grappleHandle() -> void:
 		state = playerState.Idle
 		$Control/Aim.visible = false
 		if is_on_wall():
-			#print_debug("on wall")
 			velocity.y = 0
 
 func deathHandle() -> void:
@@ -322,7 +302,7 @@ func playerUpdateHp(n:int = 1) -> void:
 		hp = maxHp
 	if (hp <= 0):
 		deathHandle()
-	print("hp update:", hp)
+	#print("hp update:", hp)
 	
 	Heart1.visible = hp >= 1
 	Heart2.visible = hp >= 2
@@ -349,7 +329,7 @@ func takingDmg():
 	if inArea:
 		if canTakeDamage:			
 			playerUpdateHp(-1)
-			print("took dmg   new hp: ",hp)
+			#print("took dmg   new hp: ",hp)
 			takeDamageCooldown(1)
 
 

@@ -70,7 +70,7 @@ func animationHandler():
 	
 	if position.distance_to(player.position) <= 150:
 		if sprite.animation != "Attack":
-			print("attacking")
+			#print("attacking")
 			sprite.play("Attack")
 	elif sprite.animation != "Walk":
 		sprite.play("Walk")
@@ -111,7 +111,7 @@ func takeDamage(dmg:int) -> void:
 		taking_damage = true
 		$HitCooldown.start()
 	
-	print("took dmg, hp:", hp)
+	#print("took dmg, hp:", hp)
 	if hp <= 0:
 		queue_free()
 		dead = true
@@ -123,7 +123,6 @@ func patrol() -> void:
 		
 	velocity.x = facing * SPEED
 	dir.x = abs(velocity.x) / velocity.x
-
 
 func _on_hit_cooldown_timeout() -> void:
 	pass # Replace with function body.
