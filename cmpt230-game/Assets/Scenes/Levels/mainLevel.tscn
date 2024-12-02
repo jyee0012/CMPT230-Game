@@ -122,6 +122,7 @@ offset_right = 4320.0
 offset_bottom = -544.0
 scale = Vector2(2.21938, 2.21938)
 text = "Arrow Keys to move
+Spacebar to jump 
 You can also wall jump!"
 horizontal_alignment = 1
 
