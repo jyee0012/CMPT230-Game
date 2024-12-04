@@ -144,7 +144,7 @@ offset_right = 27484.0
 offset_bottom = -2097.0
 scale = Vector2(2.21938, 2.21938)
 text = "A to grapple!
-X to attack!"
+X / Space to attack!"
 horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="Control"]
