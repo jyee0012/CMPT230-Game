@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://t4i8guqe11dw"]
+[gd_scene load_steps=17 format=4 uid="uid://t4i8guqe11dw"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/main_level.gd" id="1_fpi11"]
 [ext_resource type="Texture2D" uid="uid://beygij8ad3uhm" path="res://Assets/Sprites/Enemies/smallspacebun.png" id="1_ph14l"]
@@ -13,6 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="9_54a0d"]
 [ext_resource type="PackedScene" uid="uid://muqvvimcni3r" path="res://Assets/Scenes/Entities/enemy.tscn" id="10_stuph"]
 [ext_resource type="Texture2D" uid="uid://b5586v6lq44hu" path="res://Assets/Sprites/door.png" id="13_lkgds"]
+[ext_resource type="Texture2D" uid="uid://dmdanp1ywn1k2" path="res://Assets/Sprites/Environment/treeback2.png" id="14_4hthm"]
+[ext_resource type="Texture2D" uid="uid://cuot4m6kj0ii3" path="res://Assets/Sprites/Environment/belowtree.png" id="15_3sedc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_emqqu"]
 
@@ -198,6 +200,24 @@ scale = Vector2(2.21938, 2.21938)
 text = "Press Up on door
 to leave"
 horizontal_alignment = 1
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+modulate = Color(0.493545, 0.493546, 0.493546, 1)
+position = Vector2(0, -1600)
+motion_scale = Vector2(0.7, 0.7)
+motion_mirroring = Vector2(4000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+texture = ExtResource("14_4hthm")
+centered = false
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+scale = Vector2(2, 2)
+texture = ExtResource("15_3sedc")
+centered = false
+offset = Vector2(0, 1000)
 
 [connection signal="area_entered" from="door" to="Player" method="_on_door_area_entered"]
 [connection signal="area_exited" from="door" to="Player" method="_on_door_area_exited"]
