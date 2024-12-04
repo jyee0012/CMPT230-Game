@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://t4i8guqe11dw"]
+[gd_scene load_steps=15 format=4 uid="uid://t4i8guqe11dw"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/main_level.gd" id="1_fpi11"]
 [ext_resource type="Texture2D" uid="uid://beygij8ad3uhm" path="res://Assets/Sprites/Enemies/smallspacebun.png" id="1_ph14l"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://be2g5ama7hmuq" path="res://Assets/Scenes/Entities/Environment.tscn" id="8_ks0o5"]
 [ext_resource type="PackedScene" uid="uid://bxetfnay2pj7h" path="res://Assets/Scenes/Entities/item.tscn" id="9_54a0d"]
 [ext_resource type="PackedScene" uid="uid://muqvvimcni3r" path="res://Assets/Scenes/Entities/enemy.tscn" id="10_stuph"]
+[ext_resource type="Texture2D" uid="uid://b5586v6lq44hu" path="res://Assets/Sprites/door.png" id="13_lkgds"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_emqqu"]
 
 [node name="Node2D" type="Node2D"]
 z_index = 1
@@ -19,8 +22,30 @@ position = Vector2(355, 164)
 script = ExtResource("1_fpi11")
 metadata/_edit_vertical_guides_ = [17769.0]
 
+[node name="door" type="Area2D" parent="."]
+position = Vector2(23909, -6491)
+
+[node name="TextureRect" type="TextureRect" parent="door"]
+offset_left = -87.0
+offset_top = -88.0
+offset_right = 83.0
+offset_bottom = 72.0
+texture = ExtResource("13_lkgds")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="door"]
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_emqqu")
+
 [node name="Smallspacebun" type="Sprite2D" parent="."]
 position = Vector2(4324, -264)
+texture = ExtResource("1_ph14l")
+
+[node name="Smallspacebun2" type="Sprite2D" parent="."]
+position = Vector2(13529, -95)
+texture = ExtResource("1_ph14l")
+
+[node name="Smallspacebun3" type="Sprite2D" parent="."]
+position = Vector2(27908, -1852)
 texture = ExtResource("1_ph14l")
 
 [node name="GameData" parent="." instance=ExtResource("2_1jecg")]
@@ -128,26 +153,31 @@ horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 12956.0
-offset_top = -405.0
-offset_right = 13162.0
-offset_bottom = -356.0
+offset_left = 13314.0
+offset_top = -385.0
+offset_right = 13520.0
+offset_bottom = -310.0
 scale = Vector2(2.21938, 2.21938)
-text = "Shift to dash!"
+text = "Here are some boots!
+They give the ability to
+Press Shift to Dash!"
 horizontal_alignment = 1
 
 [node name="Label3" type="Label" parent="Control"]
 layout_mode = 0
-offset_left = 27278.0
-offset_top = -2146.0
-offset_right = 27484.0
-offset_bottom = -2097.0
+offset_left = 27691.0
+offset_top = -2196.0
+offset_right = 27897.0
+offset_bottom = -2095.0
 scale = Vector2(2.21938, 2.21938)
-text = "A to grapple!
-X / Space to attack!"
+text = "I found a whip, 
+it may help you get up!
+Press A to Grapple!
+Press X to Attack!"
 horizontal_alignment = 1
 
 [node name="Label4" type="Label" parent="Control"]
+visible = false
 layout_mode = 0
 offset_left = 27618.0
 offset_top = -2533.0
@@ -158,6 +188,19 @@ text = "Use the grapple
 to get up"
 horizontal_alignment = 1
 
+[node name="Label5" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 23666.0
+offset_top = -6793.0
+offset_right = 23872.0
+offset_bottom = -6744.0
+scale = Vector2(2.21938, 2.21938)
+text = "Press Up on door
+to leave"
+horizontal_alignment = 1
+
+[connection signal="area_entered" from="door" to="Player" method="_on_door_area_entered"]
+[connection signal="area_exited" from="door" to="Player" method="_on_door_area_exited"]
 [connection signal="dash_collect" from="GameData" to="Player" method="_on_game_data_dash_collect"]
 [connection signal="hp_collect" from="GameData" to="Player" method="_on_game_data_hp_collect"]
 [connection signal="whip_collect" from="GameData" to="Player" method="_on_game_data_whip_collect"]

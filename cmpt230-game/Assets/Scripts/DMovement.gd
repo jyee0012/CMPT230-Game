@@ -27,6 +27,7 @@ var hp
 var maxHp = 5
 var canTakeDamage:bool = true
 var inArea:bool = false
+var atDoor:bool = false
 
 
 
@@ -99,7 +100,7 @@ func _physics_process(delta: float) -> void:
 			grappleHandle()
 		playerState.Attack:
 			pass
-	
+	exitHandle()
 	takingDmg()
 	move_and_slide()
 	
@@ -310,6 +311,11 @@ func playerUpdateHp(n:int = 1) -> void:
 	Heart4.visible = hp >= 4
 	Heart5.visible = hp >= 5
 	
+func exitHandle() -> void:
+	if atDoor:
+		if Input.is_action_just_pressed("up"):
+			print("scene change")
+			get_tree().change_scene_to_file("res://Assets/Scenes/Levels/endscreen.tscn")
 
 func takeDamageCooldown(val):
 	canTakeDamage = false
@@ -335,3 +341,12 @@ func takingDmg():
 
 func _on_hurtbox_body_exited(body: Node2D) -> void:
 	inArea = false 
+
+func _on_door_area_entered(area: Area2D) -> void:
+	print("at door")
+	atDoor = true
+
+
+func _on_door_area_exited(area: Area2D) -> void:
+	print("left door")
+	atDoor = false
