@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dx1bvtiuor7m6"]
+[gd_scene load_steps=5 format=3 uid="uid://iya2yt76odmm"]
 
 [ext_resource type="Script" path="res://Assets/Scenes/Levels/pause.gd" id="1_r4mp0"]
 [ext_resource type="Texture2D" uid="uid://cx0reyamtgjh3" path="res://Assets/ui/resume.png" id="2_e2jjf"]
